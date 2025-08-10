@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-09T19:20:45.896Z",
+  "platform": "pinterest",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Destination Link Quality"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Handmade ceramic mug",
+    "description": "Handmade ceramic mug",
+    "link": "www.blueheronlawns.com",
+    "board": ""
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

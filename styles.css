@@ -1,0 +1,90 @@
+:root {
+  --bg: #0f1324; --panel: #161a34; --ink: #e9ecff; --muted: #a6b0d9;
+  --accent: #7cc9ff; --accent-2: #81f7ce; --border: #273069;
+  --ok:#89f79b; --warn:#f7d774; --danger:#ff6b6b;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 Inter,system-ui,sans-serif}
+
+.top{padding:18px 20px;border-bottom:1px solid var(--border)}
+.brand{font-weight:800;font-size:22px}
+.subtitle{color:var(--muted);font-size:13px;margin-top:6px}
+
+.wrap{max-width:960px;margin:0 auto;padding:18px;display:grid;gap:14px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px}
+
+.row{display:grid;grid-template-columns:160px 1fr;gap:10px;align-items:center;margin:8px 0}
+.lbl{color:var(--muted);font-size:13px}
+.hint{color:var(--muted);font-size:12px;margin-top:6px}
+
+input[type="text"],input[type="url"],input[type="number"],textarea,select{
+  width:100%;background:#0e1230;color:var(--ink);border:1px solid var(--border);border-radius:10px;padding:10px
+}
+textarea{min-height:110px;resize:vertical}
+.counter{font-size:12px;color:var(--muted);text-align:right;margin-top:4px}
+.help{font-size:12px;color:var(--muted)}
+
+.actions{display:flex;gap:10px;justify-content:flex-end;padding:0 2px}
+.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071229;border:0;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+.ghost{background:transparent;color:var(--muted);border:1px solid var(--border);padding:10px 14px;border-radius:10px;cursor:pointer}
+
+.traffic{display:inline-block;padding:8px 12px;border-radius:24px;font-weight:700}
+.traffic-green{background:#173322;color:var(--ok);border:1px solid #215c38}
+.traffic-yellow{background:#2a2b11;color:var(--warn);border:1px solid #5d5720}
+.traffic-red{background:#3a1616;color:var(--danger);border:1px solid #6b2323}
+
+.issues{display:grid;gap:8px;margin-top:10px}
+.issue{background:#0e1330;border:1px dashed var(--border);border-radius:10px;padding:8px}
+.fix{background:#0f1f2f;border:1px solid #2a4a74;border-radius:10px;padding:8px;margin-top:8px}
+
+.foot{padding:20px;color:var(--muted);text-align:center}
+.bad{outline:1px solid var(--danger)}
+
+/* =========================
+   Phase 2 additions (safe)
+   - model chip, toggles, model rewrite
+   - minor a11y polish
+========================= */
+
+.muted{color:var(--muted)}
+
+/* Chip for model name */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px; padding:6px 10px; border-radius:999px;
+  background:#0e1330; border:1px solid var(--border); color:var(--muted);
+  white-space:nowrap;
+}
+.chip strong{color:var(--ink);font-weight:700}
+
+/* Simple toggle row (uses native checkbox) */
+.toggle input[type="checkbox"]{
+  width:16px;height:16px;accent-color:var(--accent);
+}
+.toggle .lbl{font-size:13px}
+
+/* Model rewrite panel text */
+.model-rewrite{
+  background:#0e1230;border:1px solid var(--border);
+  border-radius:10px;padding:10px;color:var(--ink);
+  white-space:pre-wrap;line-height:1.4;
+}
+
+/* Inputs: focus ring (keyboard friendly) */
+input[type="text"]:focus,input[type="url"]:focus,input[type="number"]:focus,textarea:focus,select:focus{
+  outline:2px solid transparent;
+  box-shadow:0 0 0 2px rgba(129,247,206,0.35);
+  border-color:#2c3b7a;
+}
+
+/* Buttons: hover/disabled */
+.primary:hover{filter:brightness(1.03)}
+.ghost:hover{border-color:#3a4aa0;color:#c7cff5}
+.primary:disabled,.ghost:disabled{opacity:.55;cursor:not-allowed}
+
+/* Responsive: stack label/field on small screens */
+@media (max-width: 720px){
+  .row{grid-template-columns:1fr;gap:6px}
+  .lbl{margin-bottom:2px}
+}

@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-08-09T19:40:40.320Z",
+  "platform": "instagram",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "handade mug",
+    "hashtags": "",
+    "link": ""
+  },
+  "model": null,
+  "strictMode": false
+}

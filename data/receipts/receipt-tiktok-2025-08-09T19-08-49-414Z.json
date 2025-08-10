@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-09T19:08:49.413Z",
+  "platform": "tiktok",
+  "level": "red",
+  "issues": [
+    "Rapid weight-loss / medical claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Lose 20 pounds in 10 days",
+    "caption": "Lose 20 pounds in 10 days",
+    "hashtags": "",
+    "link": ""
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

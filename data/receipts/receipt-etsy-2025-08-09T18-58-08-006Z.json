@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T18:58:08.006Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Warm ceramic mug",
+    "description": "Warm ceramic mug",
+    "tags": "",
+    "price": ""
+  },
+  "model": null,
+  "strictMode": false
+}

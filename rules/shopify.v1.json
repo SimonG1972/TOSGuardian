@@ -1,0 +1,74 @@
+{
+  "platform": "shopify",
+  "version": "1.0.0",
+  "updated_at": "2025-08-09T00:00:00Z",
+
+  "limits": {
+    "title_max": 255,
+    "description_max": 16000
+  },
+
+  "categories": [
+    {
+      "id": "counterfeit_brand",
+      "label": "Counterfeit / Brand Misuse",
+      "severity": "high",
+      "patterns_ref": "shared.counterfeit.json",
+      "rewrite": {
+        "find": "replica|knock\\s?off|counterfeit|fake|dupe",
+        "replace": "inspired"
+      },
+      "guidance": "Don’t imply a product is a replica or counterfeit. Use neutral descriptors (e.g., “inspired design”)."
+    },
+    {
+      "id": "medical_claims",
+      "label": "Medical / Health Claims",
+      "severity": "high",
+      "patterns_ref": "shared.medical.json",
+      "rewrite": {
+        "verb_soften": {
+          "find": "miracle|cure|treat|heal|prevent|diagnos|FDA\\s*(approved|cleared)",
+          "replace": "supports"
+        },
+        "guidance": "Avoid claiming to diagnose, prevent, treat, or cure. Prefer neutral phrasing like “designed to support overall wellness.”"
+      }
+    },
+    {
+      "id": "claims_absolute",
+      "label": "Absolute / Guaranteed Claims",
+      "severity": "medium",
+      "patterns": [
+        "\\bguarantee(d)?\\b",
+        "\\b100%\\b",
+        "\\bproven\\b",
+        "\\binstant\\b"
+      ],
+      "rewrite": {
+        "find": "guarantee(d)?|100%|proven|instant",
+        "replace": "designed to"
+      },
+      "guidance": "No absolute guarantees; describe function and expected use honestly."
+    },
+    {
+      "id": "testimonials_medical",
+      "label": "Medical Testimonials / Before-After",
+      "severity": "medium",
+      "patterns": [
+        "\\bbefore\\s*\\/?\\s*after\\b",
+        "\\bcured\\s+my\\b",
+        "\\bfixed\\s+my\\b"
+      ],
+      "guidance": "Avoid before/after implications for medical outcomes or disease names."
+    }
+  ],
+
+  "hints": {
+    "title": "Keep titles descriptive and brand-safe.",
+    "description": "Describe materials, features, and intended use without medical or absolute claims."
+  },
+
+  "sources": [
+    "https://www.shopify.com/legal/aup",
+    "https://help.shopify.com/en/manual/your-account/policies/terms"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T19:23:14.008Z",
+  "platform": "pinterest",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Prevents cancer",
+    "description": "Prevents cancer",
+    "link": "https://www.blueheronlawns.com/",
+    "board": ""
+  },
+  "model": null,
+  "strictMode": false
+}

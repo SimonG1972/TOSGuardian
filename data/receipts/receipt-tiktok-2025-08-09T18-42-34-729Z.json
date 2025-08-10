@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T18:42:34.728Z",
+  "platform": "tiktok",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "",
+    "caption": "Nice ceramic mug",
+    "hashtags": "",
+    "link": ""
+  },
+  "model": null,
+  "strictMode": false
+}

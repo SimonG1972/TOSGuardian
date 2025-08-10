@@ -1,0 +1,92 @@
+{
+  "platform": "youtube",
+  "version": "1.0.0",
+  "updated_at": "2025-08-09T00:00:00Z",
+
+  "limits": {
+    "title_max": 100,
+    "description_max": 5000,
+    "tags_max_count": 500
+  },
+
+  "categories": [
+    {
+      "id": "medical_misinformation",
+      "label": "Medical Misinformation / Health Claims",
+      "severity": "high",
+      "patterns_ref": "shared.medical.json",
+      "guidance": "Avoid implying diagnosis, cure, or prevention. Use neutral wellness phrasing."
+    },
+    {
+      "id": "dangerous_acts",
+      "label": "Harmful or Dangerous Acts",
+      "severity": "high",
+      "patterns_ref": "shared.safety.json#dangerous_acts",
+      "guidance": "Do not encourage dangerous activities or bypassing safety guidance."
+    },
+    {
+      "id": "minors_safety",
+      "label": "Minors' Safety",
+      "severity": "high",
+      "patterns_ref": "shared.safety.json#minors_risk",
+      "guidance": "No unsafe challenges for kids or age-inappropriate content targeting minors."
+    },
+    {
+      "id": "hate_harassment",
+      "label": "Hate / Harassment",
+      "severity": "high",
+      "patterns_ref": "shared.safety.json#hate_harassment",
+      "guidance": "Avoid insulting, dehumanizing, or targeting protected groups."
+    },
+    {
+      "id": "scam_signals",
+      "label": "Scams / Financial Misrepresentation",
+      "severity": "high",
+      "patterns_ref": "shared.scam.json",
+      "guidance": "No investment schemes, crypto giveaways, or off-platform payment solicitations."
+    },
+    {
+      "id": "clickbait_spam",
+      "label": "Clickbait / Spam",
+      "severity": "medium",
+      "patterns_ref": "shared.clickbait.json",
+      "rewrite": {
+        "find": "click here|get rich quick|act now|once in a lifetime|you won't believe|shocking|guaranteed results|instant results",
+        "replace": "learn more"
+      },
+      "guidance": "Use clear, descriptive titles and descriptions that reflect the actual content."
+    },
+    {
+      "id": "sexual_content",
+      "label": "Sexual / Explicit Content",
+      "severity": "high",
+      "patterns": [
+        "\\bnsfw\\b", "\\bexplicit\\b", "\\bporn\\b", "\\berotic\\b"
+      ],
+      "guidance": "Avoid explicit sexual content and language."
+    },
+    {
+      "id": "copyright_misuse",
+      "label": "Copyright / Unlicensed Content",
+      "severity": "high",
+      "patterns": [
+        "\\breupload(ed)?\\b",
+        "\\bstolen\\b",
+        "\\bno\\s*rights\\b",
+        "\\bunlicensed\\b"
+      ],
+      "guidance": "Use original content or content you have rights to. Add commentary/transformative use where applicable."
+    }
+  ],
+
+  "hints": {
+    "title": "Describe the core value clearly; avoid hype.",
+    "description": "Summarize the video, key takeaways, and any resources.",
+    "tags": "Use relevant keywords; avoid spammy or misleading tags."
+  },
+
+  "sources": [
+    "https://support.google.com/youtube/answer/6162278",
+    "https://support.google.com/youtube/answer/9288567"
+  ]
+}

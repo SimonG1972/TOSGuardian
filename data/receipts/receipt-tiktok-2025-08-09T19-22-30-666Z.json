@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-09T19:22:30.664Z",
+  "platform": "tiktok",
+  "level": "red",
+  "issues": [
+    "Medical Misinformation / Health Claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Prevents cancer",
+    "caption": "Prevents cancer",
+    "hashtags": "",
+    "link": ""
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

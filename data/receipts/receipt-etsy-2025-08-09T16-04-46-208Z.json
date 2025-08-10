@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-08-09T16:04:46.207Z",
+  "platform": "etsy",
+  "level": "red",
+  "issues": [
+    "Medical/health claim detected (not allowed on Etsy)."
+  ],
+  "fixesCount": 1,
+  "fieldsSnapshot": {
+    "title": "Hand Cream",
+    "description": "might help prevent cancer",
+    "tags": "",
+    "price": ""
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "platform": "tiktok",
+  "version": "1.0.0",
+  "updated_at": "2025-08-09T00:00:00Z",
+
+  "limits": {
+    "title_max": 100,
+    "caption_max": 2200,
+    "hashtags_max_count": 30
+  },
+
+  "categories": [
+    {
+      "id": "medical_misinformation",
+      "label": "Medical Misinformation / Health Claims",
+      "severity": "high",
+      "patterns_ref": "shared.medical.json",
+      "guidance": "Avoid implying diagnosis, cure, or prevention. Prefer neutral wellness phrasing."
+    },
+    {
+      "id": "dangerous_acts",
+      "label": "Harmful or Dangerous Acts",
+      "severity": "high",
+      "patterns_ref": "shared.safety.json#dangerous_acts",
+      "guidance": "No encouragement of dangerous activities, challenges, or bypassing safety."
+    },
+    {
+      "id": "minors_safety",
+      "label": "Minors' Safety",
+      "severity": "high",
+      "patterns_ref": "shared.safety.json#minors_risk",
+      "guidance": "No unsafe challenges for kids or targeting minors with age-inappropriate content."
+    },
+    {
+      "id": "hate_harassment",
+      "label": "Hate / Harassment",
+      "severity": "high",
+      "patterns_ref": "shared.safety.json#hate_harassment",
+      "guidance": "Avoid slurs, dehumanizing language, harassment, or doxxing."
+    },
+    {
+      "id": "scam_signals",
+      "label": "Scams / Financial Misrepresentation",
+      "severity": "high",
+      "patterns_ref": "shared.scam.json",
+      "guidance": "No off-platform payments, crypto giveaways, or investment claims."
+    },
+    {
+      "id": "clickbait_spam",
+      "label": "Clickbait / Spam",
+      "severity": "medium",
+      "patterns_ref": "shared.clickbait.json",
+      "rewrite": {
+        "find": "click here|get rich quick|act now|once in a lifetime|you won't believe|shocking|guaranteed results|instant results",
+        "replace": "learn more"
+      },
+      "guidance": "Keep titles/captions clear and accurate; avoid manipulative phrasing."
+    },
+    {
+      "id": "sexual_content",
+      "label": "Sexual / Explicit Content",
+      "severity": "high",
+      "patterns": [
+        "\\bnsfw\\b", "\\bexplicit\\b", "\\bporn\\b", "\\berotic\\b"
+      ],
+      "guidance": "Avoid explicit sexual content/language."
+    }
+  ],
+
+  "hints": {
+    "title": "State the idea clearly without hype.",
+    "caption": "Provide helpful context, disclaimers when needed, and honest outcomes.",
+    "hashtags": "Use relevant tags; avoid spammy/irrelevant stuffing."
+  },
+
+  "sources": [
+    "https://www.tiktok.com/community-guidelines/en/",
+    "https://support.tiktok.com/"
+  ]
+}

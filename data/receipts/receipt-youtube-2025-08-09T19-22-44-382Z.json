@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-09T19:22:44.382Z",
+  "platform": "youtube",
+  "level": "red",
+  "issues": [
+    "Medical Misinformation / Health Claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Prevents cancer",
+    "description": "Prevents cancer",
+    "tags": "",
+    "link": ""
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-09T19:23:01.483Z",
+  "platform": "shopify",
+  "level": "red",
+  "issues": [
+    "Medical / Health Claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Prevents cancer",
+    "description": "Prevents cancer",
+    "sku": "",
+    "price": "67"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

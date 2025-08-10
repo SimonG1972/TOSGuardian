@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-08-09T19:52:07.536Z",
+  "platform": "facebook",
+  "level": "red",
+  "issues": [
+    "Medical / Health Claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "prevents cancer",
+    "hashtags": "",
+    "link": ""
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,15 @@
+{
+  "claim_verbs": [
+    "cure", "cures", "cured", "curing",
+    "treat", "treats", "treated", "treating", "treatment",
+    "heal", "heals", "healed", "healing",
+    "prevent", "prevents", "prevented", "prevention",
+    "diagnose", "diagnoses", "diagnosed", "diagnosis",
+    "miracle", "miraculous", "remedy", "medicates"
+  ],
+  "diseases": [
+    "cancer", "eczema", "psoriasis", "diabetes", "arthritis", "anxiety",
+    "depression", "asthma", "migraine", "acne", "tumor", "tumour",
+    "hypertension", "covid", "flu", "cold"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-09T18:58:48.954Z",
+  "platform": "etsy",
+  "level": "red",
+  "issues": [
+    "Medical / Health Claims",
+    "Absolute / Guaranteed Claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Guaranteed cure",
+    "description": "Guaranteed cure",
+    "tags": "",
+    "price": ""
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

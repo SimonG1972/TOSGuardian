@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T19:21:18.077Z",
+  "platform": "pinterest",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Handmade ceramic mug",
+    "description": "Handmade ceramic mug",
+    "link": "https://www.blueheronlawns.com/",
+    "board": ""
+  },
+  "model": null,
+  "strictMode": false
+}

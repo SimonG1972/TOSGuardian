@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-08-09T20:14:40.836Z",
+  "platform": "ebay",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "ceramic mug",
+    "description": "ceramic mug",
+    "price": "56"
+  },
+  "model": null,
+  "strictMode": false
+}

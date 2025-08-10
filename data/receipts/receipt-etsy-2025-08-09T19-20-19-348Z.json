@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T19:20:19.347Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Handmade ceramic mug",
+    "description": "Handmade ceramic mug",
+    "tags": "",
+    "price": ""
+  },
+  "model": null,
+  "strictMode": false
+}

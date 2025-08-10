@@ -1,0 +1,87 @@
+{
+  "platform": "pinterest",
+  "version": "1.0.1",
+  "updated_at": "2025-08-09T00:00:00Z",
+
+  "limits": {
+    "title_max": 100,
+    "description_max": 500
+  },
+
+  "categories": [
+    {
+      "id": "clickbait_spam",
+      "label": "Clickbait / Spammy Language",
+      "severity": "high",
+      "patterns_ref": "shared.clickbait.json",
+      "rewrite": {
+        "find": "click here|get rich quick|act now|once in a lifetime|you won't believe|shocking|guaranteed results|instant results",
+        "replace": "learn more"
+      },
+      "guidance": "Avoid sensational or manipulative calls to action. Use clear, descriptive copy."
+    },
+
+    {
+      "id": "medical_health_claims",
+      "label": "Medical / Health Claims",
+      "severity": "high",
+      "patterns_ref": "shared.medical.json",
+      "rewrite": {
+        "find": "(?i)(cure|cures|treat|treats|prevent|prevents|reverse|reverses)",
+        "replace": "support"
+      },
+      "guidance": "Avoid disease treatment/cure/prevention claims. Use soft, general wellness phrasing."
+    },
+
+    {
+      "id": "scam_signals",
+      "label": "Scam / Off-platform Signals",
+      "severity": "high",
+      "patterns_ref": "shared.scam.json",
+      "guidance": "Avoid directing users to private messaging apps or making financial promises."
+    },
+    {
+      "id": "misleading_offers",
+      "label": "Misleading Offers",
+      "severity": "medium",
+      "patterns": [
+        "\\bfree\\b(?!\\s*shipping)",
+        "\\bno risk\\b",
+        "\\b100%\\s*guarantee(d)?\\b"
+      ],
+      "rewrite": {
+        "find": "no risk|100%\\s*guarantee(d)?|free(?!\\s*shipping)",
+        "replace": "limited-time offer"
+      }
+    },
+    {
+      "id": "adult_violent",
+      "label": "Adult / Violent Content",
+      "severity": "high",
+      "patterns": [
+        "\\bnsfw\\b",
+        "\\bexplicit\\b",
+        "\\bgore\\b",
+        "\\bgraphic violence\\b"
+      ],
+      "guidance": "Keep Pins safe-for-work and non-graphic."
+    },
+    {
+      "id": "link_quality",
+      "label": "Destination Link Quality",
+      "severity": "medium",
+      "checks": ["url_scheme_http_https"],
+      "guidance": "Use valid http(s) links; avoid excessive shorteners and misleading redirects."
+    }
+  ],
+
+  "hints": {
+    "title": "Use a clear, honest title that matches the landing page.",
+    "description": "Describe the content and expected outcome without hype."
+  },
+
+  "sources": [
+    "https://help.pinterest.com/",
+    "https://policy.pinterest.com/"
+  ]
+}

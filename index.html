@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TOS Guardian • Pre-Flight Checker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">🛡️ TOS Guardian</div>
+    <div class="subtitle">Don’t get flagged. Fix issues before you post.</div>
+  </header>
+
+  <main class="wrap">
+    <!-- Platform + toggles row -->
+    <section class="card">
+      <label class="row" style="align-items:center; gap:12px;">
+        <span class="lbl">Choose platform</span>
+        <select id="platformSelect">
+          <!-- Existing -->
+          <option value="etsy">Etsy</option>
+          <option value="pinterest">Pinterest</option>
+          <option value="shopify">Shopify</option>
+          <option value="youtube">YouTube</option>
+          <option value="tiktok">TikTok</option>
+          <option value="amazon">Amazon</option>
+          <option value="instagram">Instagram</option>
+          <!-- New -->
+          <option value="facebook">Facebook</option>
+          <option value="x">X</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="reddit">Reddit</option>
+          <option value="snapchat">Snapchat</option>
+          <option value="ebay">eBay</option>
+        </select>
+
+        <!-- Save receipts toggle -->
+        <label class="toggle" style="display:flex;align-items:center;gap:6px;margin-left:auto;">
+          <input type="checkbox" id="saveReceiptsToggle" checked />
+          <span class="lbl">Save receipts</span>
+        </label>
+
+        <!-- Strict mode toggle -->
+        <label class="toggle" style="display:flex;align-items:center;gap:6px;">
+          <input type="checkbox" id="strictModeToggle" />
+          <span class="lbl">Strict mode</span>
+        </label>
+
+        <!-- Model chip -->
+        <span id="modelChip" class="chip" style="display:none;">
+          Model: <strong id="modelName">Llama 3.1 (local)</strong>
+        </span>
+      </label>
+      <div class="hint">Fields will change automatically for the platform you pick.</div>
+    </section>
+
+    <!-- Dynamic form -->
+    <section class="card" id="formMount"></section>
+
+    <!-- Actions -->
+    <section class="actions">
+      <button id="btnCheck" class="primary">Run Compliance Check</button>
+      <button id="btnReset" class="ghost">Reset</button>
+    </section>
+
+    <!-- Results -->
+    <section class="card" id="results" hidden>
+      <div id="trafficLight" class="traffic traffic-yellow">Awaiting check…</div>
+
+      <div id="issues" class="issues"></div>
+
+      <div class="fixes" id="fixes" hidden>
+        <h4>Suggested Fixes</h4>
+        <div id="fixesBody"></div>
+        <button id="applyFixes" class="primary">Apply All Fixes</button>
+      </div>
+
+      <!-- Model rewrite block -->
+      <div id="modelBlock" style="margin-top:16px;" hidden>
+        <h4>Model Rewrite</h4>
+        <div id="modelRewrite" class="model-rewrite">—</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>v0.1 • Local demo • No data leaves your browser</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-09T15:59:27.887Z",
+  "platform": "etsy",
+  "result": {
+    "level": "yellow",
+    "issues": [
+      "Potential medical claim (Etsy prohibits medical claims)."
+    ],
+    "fixes": [
+      {
+        "field": "description",
+        "suggestion": "Etsy description with “supports”"
+      }
+    ]
+  },
+  "fieldsSnapshot": {
+    "title": "wonder cream",
+    "description": "Etsy description with “FDA approved”",
+    "tags": "",
+    "price": ""
+  }
+}

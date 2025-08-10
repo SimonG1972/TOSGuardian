@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-09T19:08:23.698Z",
+  "platform": "shopify",
+  "level": "red",
+  "issues": [
+    "Rapid weight-loss / medical claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Lose 20 pounds in 10 days",
+    "description": "Lose 20 pounds in 10 days",
+    "sku": "",
+    "price": "67"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

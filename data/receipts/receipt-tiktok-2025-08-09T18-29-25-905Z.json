@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-08-09T18:29:25.905Z",
+  "platform": "tiktok",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "",
+    "caption": "This prevents cancer",
+    "hashtags": "",
+    "link": ""
+  },
+  "model": null
+}

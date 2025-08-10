@@ -1,0 +1,73 @@
+{
+  "platform": "instagram",
+  "version": "1.0.0",
+  "updated_at": "2025-08-09T00:00:00Z",
+
+  "limits": {
+    "caption_max": 2200,
+    "hashtags_max_count": 30
+  },
+
+  "rewrite": {
+    "neutral_noun": "overall wellness"
+  },
+
+  "categories": [
+    {
+      "id": "medical_health_claims",
+      "label": "Medical / Health Claims",
+      "severity": "high",
+      "patterns_ref": "shared.medical.json",
+      "rewrite": {
+        "find": "(?i)(cure|cures|treat|treats|prevent|prevents|reverse|reverses)",
+        "replace": "support"
+      },
+      "guidance": "Avoid disease treatment/cure/prevention claims. Use soft, general wellness phrasing."
+    },
+    {
+      "id": "rapid_weight_loss_global",
+      "label": "Rapid weight-loss / medical claims",
+      "severity": "high",
+      "patterns_ref": "shared.global.json"
+    },
+    {
+      "id": "counterfeit",
+      "label": "Counterfeit / replica claims",
+      "severity": "high",
+      "patterns_ref": "shared.counterfeit.json"
+    },
+    {
+      "id": "clickbait_spam",
+      "label": "Clickbait / Spammy Language",
+      "severity": "high",
+      "patterns_ref": "shared.clickbait.json",
+      "rewrite": {
+        "find": "click here|get rich quick|act now|once in a lifetime|you won't believe|shocking|guaranteed results|instant results",
+        "replace": "learn more"
+      }
+    },
+    {
+      "id": "scam_signals",
+      "label": "Scam / Off-platform Signals",
+      "severity": "high",
+      "patterns_ref": "shared.scam.json"
+    },
+    {
+      "id": "adult_violent",
+      "label": "Adult / Violent Content",
+      "severity": "high",
+      "patterns": [
+        "\\bnsfw\\b",
+        "\\bexplicit\\b",
+        "\\bgore\\b",
+        "\\bgraphic violence\\b"
+      ]
+    },
+    {
+      "id": "link_quality",
+      "label": "Destination Link Quality",
+      "severity": "medium",
+      "checks": ["url_scheme_http_https"]
+    }
+  ]
+}

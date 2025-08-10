@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-08-09T19:51:59.366Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "ceramic mug",
+    "hashtags": "",
+    "link": ""
+  },
+  "model": null,
+  "strictMode": false
+}

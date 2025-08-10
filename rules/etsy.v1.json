@@ -1,0 +1,85 @@
+{
+  "platform": "etsy",
+  "version": "1.0.0",
+  "updated_at": "2025-08-09T00:00:00Z",
+
+  "limits": {
+    "title_max": 140,
+    "description_max": 10000,
+    "tag_max_count": 13
+  },
+
+  "categories": [
+    {
+      "id": "medical_claims",
+      "label": "Medical / Health Claims",
+      "severity": "high",
+      "patterns": [
+        "\\bmiracle\\b",
+        "\\bcure(s|d)?\\b",
+        "\\btreat(s|ed|ment)?\\b",
+        "\\bheal(s|ed|ing)?\\b",
+        "\\bprevent(s|ed|ion)?\\b",
+        "\\bdiagnos(e|is|ed|es)\\b",
+        "\\bFDA\\s*(approved|cleared)\\b",
+        "cancer",
+        "eczema",
+        "psoriasis",
+        "diabetes",
+        "arthritis",
+        "anxiety",
+        "depression",
+        "asthma",
+        "migraine",
+        "acne"
+      ],
+      "rewrite": {
+        "verb_soften": {
+          "find": "miracle|cure|treat|heal|prevent|diagnos|FDA\\s*(approved|cleared)",
+          "replace": "supports"
+        },
+        "guidance": "Avoid claiming to diagnose, prevent, treat, or cure any condition. Use neutral language like 'supports relaxation' or 'for general wellness'."
+      }
+    },
+    {
+      "id": "counterfeit",
+      "label": "Counterfeit / Replica",
+      "severity": "high",
+      "patterns": [
+        "\\breplica\\b",
+        "knock\\s?off",
+        "\\bcounterfeit\\b",
+        "\\bfake\\b"
+      ],
+      "rewrite": {
+        "find": "replica|knock\\s?off|counterfeit|fake",
+        "replace": "inspired"
+      }
+    },
+    {
+      "id": "claims_superlatives",
+      "label": "Absolute / Guaranteed Claims",
+      "severity": "medium",
+      "patterns": [
+        "\\bguarantee(d)?\\b",
+        "\\b100%\\b",
+        "\\bproven\\b",
+        "\\binstant\\b"
+      ],
+      "rewrite": {
+        "find": "guarantee(d)?|100%|proven|instant",
+        "replace": "designed to"
+      }
+    }
+  ],
+
+  "hints": {
+    "description": "Write factual, non-medical benefits. Avoid disease names or treatment claims.",
+    "tags": "Use up to 13 simple, descriptive tags."
+  },
+
+  "sources": [
+    "https://help.etsy.com/hc/en-us/articles/115015663607",
+    "https://help.etsy.com/hc/en-us/categories/115000076647-Policies"
+  ]
+}

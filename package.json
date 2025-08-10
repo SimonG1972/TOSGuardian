@@ -1,0 +1,23 @@
+{
+  "name": "tosguardian",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local pre-flight TOS checker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "nodemon --watch server.js --watch rules --ext js,json server.js",
+    "test": "node tests/run_golden.js",
+    "test:watch": "nodemon --watch rules --watch tests --watch server.js --ext js,json --exec \"node tests/run_golden.js\"",
+    "dev": "concurrently -k -n SERVER,TEST \"npm:serve\" \"wait-on http-get://localhost:3000 && npm run test:watch\"",
+    "test:once": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/run_golden.js\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "nodemon": "^3.0.0",
+    "wait-on": "^7.2.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-09T16:22:43.773Z",
+  "platform": "etsy",
+  "rulebook": "1.0.0",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 1,
+  "fieldsSnapshot": {
+    "title": "Hand Cream",
+    "description": "Miracle cream to prevent cancer",
+    "tags": "",
+    "price": ""
+  }
+}

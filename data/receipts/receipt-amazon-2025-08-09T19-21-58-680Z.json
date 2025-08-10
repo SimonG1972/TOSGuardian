@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-08-09T19:21:58.679Z",
+  "platform": "amazon",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Handmade ceramic mug",
+    "description": "Handmade ceramic mug",
+    "bullets": "",
+    "search_terms": "",
+    "price": "56"
+  },
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T19:21:33.986Z",
+  "platform": "shopify",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Handmade ceramic mug",
+    "description": "Handmade ceramic mug",
+    "sku": "",
+    "price": "67"
+  },
+  "model": null,
+  "strictMode": false
+}

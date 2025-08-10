@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T16:12:35.873Z",
+  "platform": "etsy",
+  "rulebook": "1.0.0",
+  "level": "red",
+  "issues": [
+    "Medical / Health Claims detected."
+  ],
+  "fixesCount": 1,
+  "fieldsSnapshot": {
+    "title": "CReam",
+    "description": "might help prevent cancer",
+    "tags": "",
+    "price": ""
+  }
+}

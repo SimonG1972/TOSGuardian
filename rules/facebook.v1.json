@@ -1,0 +1,15 @@
+{
+  "platform": "facebook",
+  "version": "1.0.0",
+  "updated_at": "2025-08-09T00:00:00Z",
+  "limits": {
+    "caption_max": 2000
+  },
+  "categories": [
+    { "id": "medical_claims", "label": "Medical / Health Claims", "severity": "high", "patterns_ref": "shared.medical.json" },
+    { "id": "clickbait_spam", "label": "Clickbait / Spammy Language", "severity": "high", "patterns_ref": "shared.clickbait.json" },
+    { "id": "scam_signals", "label": "Scam / Off-platform Signals", "severity": "high", "patterns_ref": "shared.scam.json" },
+    { "id": "dangerous_acts", "label": "Safety / Dangerous Acts", "severity": "high", "patterns_ref": "shared.safety.json#dangerous_acts" },
+    { "id": "counterfeit", "label": "Counterfeit / Replica", "severity": "high", "patterns_ref": "shared.counterfeit.json" }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "tiktok": [
+    { "text": "Nice ceramic mug", "expect": "green" },
+    { "text": "Prevents cancer", "expect": "red" },
+    { "text": "Lose 20 pounds in 10 days", "expect": "red" }
+  ],
+  "youtube": [
+    { "text": "Relaxing lo-fi beats", "expect": "green" },
+    { "text": "Guaranteed cure for insomnia", "expect": "red" }
+  ],
+  "amazon": [
+    { "text": "Stainless steel water bottle", "expect": "green" },
+    { "text": "Official replica designer bag", "expect": "red" }
+  ],
+  "shopify": [
+    { "text": "Handmade soap gift set", "expect": "green" },
+    { "text": "Miracle cure for acne", "expect": "red" }
+  ],
+  "pinterest": [
+    { "text": "Cozy fall decor ideas", "expect": "green" },
+    { "text": "Lose weight fast with this tea", "expect": "red" }
+  ],
+  "etsy": [
+    { "text": "Minimalist print for bedroom", "expect": "green" },
+    { "text": "Prevents cancer natural salve", "expect": "red" }
+  ],
+  "facebook": [
+    { "text": "Handmade ceramic mug", "expect": "green" },
+    { "text": "Prevents cancer", "expect": "red" },
+    { "text": "Lose 20 pounds in 10 days", "expect": "red" },
+    { "text": "Official replica designer bag", "expect": "red" }
+  ],
+  "instagram": [
+    { "text": "Beautiful handmade mug", "expect": "green" },
+    { "text": "Cures cancer", "expect": "red" },
+    { "text": "Burn fat fast with this smoothie", "expect": "red" },
+    { "text": "Official replica designer shoes", "expect": "red" }
+  ]
+}

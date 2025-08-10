@@ -1,0 +1,12 @@
+{
+  "dangerous_acts": [
+    "challenge involving fire", "ingesting substances", "self-harm",
+    "bypassing safety equipment", "illegal activity tutorial", "weapon assembly"
+  ],
+  "minors_risk": [
+    "unsafe challenge for kids", "underage drinking", "age-inappropriate content"
+  ],
+  "hate_harassment": [
+    "slurs", "dehumanizing language", "encouraging harassment", "doxxing"
+  ]
+}

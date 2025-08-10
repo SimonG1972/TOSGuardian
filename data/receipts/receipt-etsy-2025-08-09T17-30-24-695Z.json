@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T17:30:24.694Z",
+  "platform": "etsy",
+  "level": "red",
+  "issues": [
+    "Medical / Health Claims"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "cream",
+    "description": "prevents cancer",
+    "tags": "",
+    "price": ""
+  }
+}

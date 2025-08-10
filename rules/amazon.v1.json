@@ -1,0 +1,74 @@
+{
+  "platform": "amazon",
+  "version": "1.0.0",
+  "updated_at": "2025-08-09T00:00:00Z",
+
+  "limits": {
+    "title_max": 200,
+    "description_max": 2000,
+    "bullet_points_max": 5,
+    "search_terms_max_length": 250
+  },
+
+  "categories": [
+    {
+      "id": "medical_claims",
+      "label": "Prohibited Medical Claims",
+      "severity": "high",
+      "patterns_ref": "shared.medical.json",
+      "guidance": "Do not claim to diagnose, treat, cure, or prevent diseases unless authorized and compliant."
+    },
+    {
+      "id": "restricted_products",
+      "label": "Restricted Products",
+      "severity": "high",
+      "patterns_ref": "shared.amazon_restricted.json",
+      "guidance": "Certain items are prohibited or require approval (weapons, hazardous materials, recalled items, etc.)."
+    },
+    {
+      "id": "counterfeit",
+      "label": "Counterfeit / Intellectual Property Violations",
+      "severity": "high",
+      "patterns": [
+        "\\breplica\\b", "knock\\s?off", "\\bcounterfeit\\b", "\\bfake\\b"
+      ],
+      "guidance": "No counterfeit, replica, or trademark-infringing products."
+    },
+    {
+      "id": "pricing_claims",
+      "label": "Misleading Pricing / Sales Claims",
+      "severity": "medium",
+      "patterns": [
+        "\\bMSRP\\b", "\\blist price\\b", "\\bwas \\$[0-9]+\\b"
+      ],
+      "guidance": "Follow Amazon’s pricing policies; avoid unverifiable savings claims."
+    },
+    {
+      "id": "review_manipulation",
+      "label": "Review Manipulation",
+      "severity": "high",
+      "patterns": [
+        "\\bleave a review\\b", "\\b5-star\\b", "\\bpositive feedback\\b"
+      ],
+      "guidance": "Do not ask customers for positive reviews or offer incentives."
+    },
+    {
+      "id": "spammy_keywords",
+      "label": "Keyword Stuffing",
+      "severity": "medium",
+      "patterns_ref": "shared.clickbait.json",
+      "guidance": "Avoid irrelevant keywords or repetitive stuffing in titles, bullets, and search terms."
+    }
+  ],
+
+  "hints": {
+    "title": "Use only factual, relevant keywords; avoid exaggerated claims.",
+    "description": "Focus on clear benefits and features; avoid restricted terms.",
+    "bullet_points": "Highlight top features; one per bullet."
+  },
+
+  "sources": [
+    "https://sellercentral.amazon.com/gp/help/external/200386300",
+    "https://sellercentral.amazon.com/gp/help/external/200164330"
+  ]
+}

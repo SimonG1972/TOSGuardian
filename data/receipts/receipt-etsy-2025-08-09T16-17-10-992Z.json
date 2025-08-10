@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-09T16:17:10.991Z",
+  "platform": "etsy",
+  "rulebook": "1.0.0",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 1,
+  "fieldsSnapshot": {
+    "title": "Cream",
+    "description": "Miracel cure for cancer",
+    "tags": "",
+    "price": ""
+  }
+}

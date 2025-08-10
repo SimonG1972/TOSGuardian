@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-09T18:59:29.115Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Lose 20 pounds in 10 days",
+    "description": "Lose 20 pounds in 10 days",
+    "tags": "",
+    "price": ""
+  },
+  "model": null,
+  "strictMode": false
+}

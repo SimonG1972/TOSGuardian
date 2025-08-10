@@ -1,0 +1,74 @@
+{
+  "version": "1.0.1",
+  "updated_at": "2025-08-09T00:00:00Z",
+  "categories": [
+    {
+      "id": "global-offplatform-sales",
+      "label": "Off-platform Sales / Circumvention",
+      "severity": "medium",
+      "patterns": [
+        "dm (me|us) for (price|payment|order)",
+        "telegram\\s*@?\\w+",
+        "whatsapp\\s*\\+?\\d+",
+        "cash app|venmo|zelle handle",
+        "pay outside (the )?platform"
+      ],
+      "guidance": "Avoid steering users to off-platform payments or private channels."
+    },
+    {
+      "id": "global-exaggerated-claims",
+      "label": "Exaggerated / Misleading Claims",
+      "severity": "medium",
+      "patterns": [
+        "guaranteed results?",
+        "instant results?",
+        "no risk",
+        "100%\\s*(guarantee|guaranteed)"
+      ],
+      "rewrite": {
+        "find": "no risk|100%\\s*(guarantee|guaranteed)|instant results?|guaranteed results?",
+        "replace": "learn more"
+      }
+    },
+    {
+      "id": "global-profanity-lite",
+      "label": "Strong Profanity / Slurs (lite demo blocklist)",
+      "severity": "medium",
+      "patterns": [
+        "\\b(?:a\\**h\\**e\\**|b\\**tch|f\\**k|s\\**t)\\b"
+      ],
+      "guidance": "Tone down profanity to keep content broadly acceptable."
+    },
+    {
+      "id": "global-rapid-weightloss-medical",
+      "label": "Rapid weight-loss / medical claims",
+      "severity": "high",
+      "patterns": [
+        "lose\\s+\\d+\\s+pounds?\\s+in\\s+\\d+\\s+(days?|weeks?)",
+        "lose\\s+weight\\s+fast",
+        "rapid\\s+weight\\s+loss",
+        "guaranteed\\s+cure",
+        "miracle\\s+cure",
+        "\\b(burn|lose)\\s+(fat|weight)\\s+(fast|quick(?:ly)?)\\b"
+      ],
+      "rewrite": {
+        "find": "(lose\\s+\\d+\\s+pounds?\\s+in\\s+\\d+\\s+(?:days?|weeks?)|lose\\s+weight\\s+fast|rapid\\s+weight\\s+loss|guaranteed\\s+cure|miracle\\s+cure)",
+        "replace": "designed to support everyday wellness"
+      }
+    },
+    {
+      "id": "global-counterfeit-replica",
+      "label": "Counterfeit / replica claims",
+      "severity": "high",
+      "patterns": [
+        "official\\s+replica",
+        "super\\s+copy",
+        "1:1\\s+replica"
+      ],
+      "rewrite": {
+        "find": "(official\\s+replica|super\\s+copy|1:1\\s+replica)",
+        "replace": "compatible design with no affiliation"
+      }
+    }
+  ]
+}
