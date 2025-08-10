@@ -1,0 +1,32 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T21:32:11.220Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "QR / Scan code solicitation (image hint) [https://assets.example.com/scan_me_qr.png]",
+    "Image fetch failed (non-blocking) [https://assets.example.com/scan_me_qr.png]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "Scan to win https://assets.example.com/scan_me_qr.png"
+  },
+  "imageFindings": [
+    {
+      "url": "https://assets.example.com/scan_me_qr.png",
+      "severity": "medium",
+      "label": "QR / Scan code solicitation (image hint)"
+    },
+    {
+      "url": "https://assets.example.com/scan_me_qr.png",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}
