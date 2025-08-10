@@ -77,7 +77,7 @@ function compactJoin(parts) {
 const DISEASES = [
   "cancer","eczema","psoriasis","diabetes","arthritis","anxiety","depression",
   "asthma","migraine","acne","tumor","tumour","hypertension","covid","flu","cold",
-  "insomnia" // ← added
+  "insomnia"
 ];
 const CLAIM_VERBS = [
   "cure","cures","cured","curing","treat","treats","treated","treating","treatment",
@@ -258,12 +258,8 @@ app.put("/api/rules/:platform", (req, res) => {
 
 // ---------- Health ----------
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
-
-// CI/health probe
-app.get('/healthz', (req, res) => {
-  res.type('text').send('ok'); // 200 by default
-});
-
+app.get("/healthz", (_req, res) => res.type("text").send("ok"));
+app.get("/readyz", (_req, res) => res.type("text").send("ok")); // <-- added
 
 // ---------- Start ----------
 app.listen(PORT, () => {
