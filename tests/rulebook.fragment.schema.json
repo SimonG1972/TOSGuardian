@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "text"],
+        "properties": {
+          "id": { "type": ["string", "number"] },
+          "text": { "type": "string" },
+          "level": { "type": ["string", "null"] },
+          "examples": { "type": ["array", "null"], "items": { "type": "string" } }
+        },
+        "additionalProperties": true
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "required": ["ref"],
+            "properties": { "ref": { "type": "string" } },
+            "additionalProperties": true
+          },
+          { "type": "object" }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}

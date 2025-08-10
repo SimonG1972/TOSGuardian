@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:41.595Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "巢๸鋀턲",
+    "description": "숹",
+    "caption": "",
+    "link": "http://s4.j.kir//////",
+    "imageUrl": "not-a-url"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:28.140Z",
+  "platform": "instagram",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "卫ᱥ",
+    "description": "냼彪䦘",
+    "caption": "蝱嵥뎒弒伩ⱡ黅",
+    "link": "",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

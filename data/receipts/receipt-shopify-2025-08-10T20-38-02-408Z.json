@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:38:02.408Z",
+  "platform": "shopify",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "㸵铻쮞ԝ",
+    "description": "넵 诓",
+    "caption": "዁罁",
+    "link": "ftp://example.com/file",
+    "imageUrl": "not-a-url"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

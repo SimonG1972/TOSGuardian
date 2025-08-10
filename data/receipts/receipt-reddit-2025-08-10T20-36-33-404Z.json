@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:33.403Z",
+  "platform": "reddit",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "谸ᦽ衬᮰ྔ(",
+    "description": "煺勾⮑簖৓",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

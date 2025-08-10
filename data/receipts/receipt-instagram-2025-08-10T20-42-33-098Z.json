@@ -1,0 +1,31 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:42:33.098Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Image fetch failed (non-blocking) [https://example.com/⚠️🔥🙂.png]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "",
+    "description": "",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": "https://example.com/⚠️🔥🙂.png"
+  },
+  "imageFindings": [
+    {
+      "url": "https://example.com/⚠️🔥🙂.png",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

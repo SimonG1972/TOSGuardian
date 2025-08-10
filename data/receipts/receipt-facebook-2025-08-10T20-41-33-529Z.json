@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:33.528Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "灣",
+    "description": "!䇎⮤",
+    "caption": "",
+    "link": "",
+    "imageUrl": "http://Ryz\"fu|_y.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

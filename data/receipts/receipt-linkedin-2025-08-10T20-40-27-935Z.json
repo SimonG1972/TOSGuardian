@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:27.934Z",
+  "platform": "linkedin",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "蹐쏚,嫽 姏￺蟱*",
+    "description": "鰖",
+    "caption": "攞ぃ﹀撚鎣횬⨈",
+    "link": "not-a-url",
+    "imageUrl": "http://6.qel"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:20.483Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "뵿⟫滍靁覚洒",
+    "description": "",
+    "caption": "!Ⴜ슓鍃컷專㟊￴¹",
+    "link": "http://).test",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

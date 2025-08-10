@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:10:03.318Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Counterfeit / replica claims"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Designer bags",
+    "description": "Best replica handbags under $100!",
+    "caption": "",
+    "link": "",
+    "imageUrl": ""
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

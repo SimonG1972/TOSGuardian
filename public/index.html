@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TOS Guardian</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body data-theme="light">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🛡️</span>
+      <div>
+        <h1>TOS Guardian</h1>
+        <p class="subtitle">Multi-platform compliance checks • Local demo</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <div class="theme-chip">
+        <span class="dot"></span>
+        <span id="themeName">Light</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Compose -->
+    <section class="card">
+      <div class="section-head">
+        <div class="row">
+          <label for="platform" class="label">Choose platform</label>
+          <select id="platform" class="select platform-select">
+            <option value="youtube">YouTube</option>
+            <option value="tiktok">TikTok</option>
+            <option value="instagram">Instagram</option>
+            <option value="pinterest">Pinterest</option>
+            <option value="facebook">Facebook</option>
+            <option value="x">X (Twitter)</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="reddit">Reddit</option>
+            <option value="etsy">Etsy</option>
+            <option value="shopify">Shopify</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label class="switch">
+            <input id="simpleAdvanced" type="checkbox" />
+            <span></span>
+          </label>
+          <span class="switch-label">Advanced fields</span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label for="title" class="label" id="labelTitle">Title *</label>
+          <input id="title" class="input" maxlength="140" placeholder="Enter title..." />
+          <div class="help" id="helpTitle">Platform guidelines appear here</div>
+        </div>
+        <div id="linkWrap" class="hide">
+          <label for="link" class="label" id="labelLink">Link (optional)</label>
+          <input id="link" class="input" placeholder="https://..." />
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="description" class="label" id="labelDescription">Description *</label>
+        <textarea id="description" class="textarea" rows="6" maxlength="2000" placeholder="Write your post…"></textarea>
+        <div class="help" id="helpDescription">Keep it clear and human. Avoid claims you can’t substantiate.</div>
+      </div>
+
+      <div id="captionWrap" class="row hide">
+        <label for="caption" class="label" id="labelCaption">Caption (optional)</label>
+        <input id="caption" class="input" maxlength="150" placeholder="Short caption…" />
+      </div>
+
+      <div id="imageWrap" class="row hide">
+        <label class="label">Image URL (optional)</label>
+        <input id="image" class="input" placeholder="https://example.com/image.png" />
+        <div class="help">Add to run image heuristics (e.g., counterfeit cues, gore, QR bait).</div>
+      </div>
+
+      <div class="row">
+        <label class="switch">
+          <input id="strictMode" type="checkbox" />
+          <span></span>
+        </label>
+        <span class="switch-label">Strict mode</span>
+        <div class="help">Safer but more conservative checks.</div>
+      </div>
+
+      <div class="actions sticky-actions">
+        <button id="scanBtn" class="btn-primary">
+          <span id="runSpinner" style="display:none">⏳</span>
+          <span id="runSuccess" style="display:none">✓</span>
+          Run Compliance Check
+        </button>
+        <button type="button" class="btn-secondary" onclick="window.location.reload()">Reset</button>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="card">
+      <h2 class="section-title">Results</h2>
+      <div class="row">
+        <div id="status" class="status-pill">Waiting…</div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3>Issues</h3>
+          <ul id="issues" class="list"></ul>
+        </div>
+        <div>
+          <h3>Suggested Fixes</h3>
+          <ul id="fixes" class="list"></ul>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3>Image Findings</h3>
+          <ul id="imageFindings" class="list"></ul>
+        </div>
+        <div>
+          <h3>Model Assist</h3>
+          <div id="model" class="mono small">(none)</div>
+          <div class="help">If a local model is configured, you’ll see a rewrite or notes here.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rulebook -->
+    <section class="card">
+      <div class="rulebook-head">
+        <h2 class="section-title">TOS / Rulebook</h2>
+        <div class="row gap">
+          <label for="rulePlatform" class="label small">Platform</label>
+          <select id="rulePlatform" class="select small">
+            <option value="youtube">YouTube</option>
+            <option value="tiktok">TikTok</option>
+            <option value="instagram">Instagram</option>
+            <option value="pinterest">Pinterest</option>
+            <option value="facebook">Facebook</option>
+            <option value="x">X (Twitter)</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="reddit">Reddit</option>
+            <option value="etsy">Etsy</option>
+            <option value="shopify">Shopify</option>
+          </select>
+
+          <span id="rbSummary" class="rb-summary small">Loading…</span>
+
+          <button id="rbToggle" class="btn-secondary small">Expand</button>
+          <button id="rbRefresh" class="btn-secondary small">Refresh</button>
+          <button id="rbEdit" class="btn-secondary small">Edit</button>
+          <button id="rbSave" class="btn-primary small hide">Save</button>
+          <button id="rbCancel" class="btn-tertiary small hide">Cancel</button>
+        </div>
+      </div>
+
+      <div id="rulesViewWrap" class="row hide">
+        <pre id="rulebookPre" class="pre mono"></pre>
+      </div>
+      <div id="rulesEditWrap" class="row hide">
+        <textarea id="rulebookText" class="textarea mono" rows="18" spellcheck="false"></textarea>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>v0.1 • Local demo • No data leaves your browser</span>
+    </footer>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

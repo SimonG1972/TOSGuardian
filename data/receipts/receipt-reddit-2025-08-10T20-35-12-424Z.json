@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:12.423Z",
+  "platform": "reddit",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "넴鼕亿衈",
+    "description": "㪛㲆",
+    "caption": "",
+    "link": "http://%PM.test",
+    "imageUrl": "http://j.fdn/;%F2%B3%AA%AAh-Ny@"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

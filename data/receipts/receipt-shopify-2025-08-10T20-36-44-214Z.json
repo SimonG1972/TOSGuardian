@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:44.213Z",
+  "platform": "shopify",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "ᦐ궩ﳗ傹㠛",
+    "description": "掆￈幟赝祠㻱妷",
+    "caption": "Ꮢ꾔",
+    "link": "ftp://example.com/file",
+    "imageUrl": "http://~.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

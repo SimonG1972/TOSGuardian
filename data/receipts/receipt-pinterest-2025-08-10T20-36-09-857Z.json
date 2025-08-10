@@ -1,0 +1,31 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:09.856Z",
+  "platform": "pinterest",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.1",
+  "fieldsSnapshot": {
+    "title": "Ʞ",
+    "description": "㙢兊",
+    "caption": "阊에礙굻熒ھ㬢",
+    "link": "data:image/png;base64,iVBORw0KGgo=",
+    "imageUrl": "http://q0d.nv/V"
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

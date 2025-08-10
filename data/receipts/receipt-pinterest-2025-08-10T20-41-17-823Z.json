@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:17.822Z",
+  "platform": "pinterest",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.1",
+  "fieldsSnapshot": {
+    "title": "幠淠ﮃ䌆䱠鐠摄ꇍ",
+    "description": "㲛嵋灌⟛넩",
+    "caption": "",
+    "link": "http://3%?fy>x1KG.test",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

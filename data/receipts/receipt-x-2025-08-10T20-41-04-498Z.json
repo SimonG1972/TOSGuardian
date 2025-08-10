@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:04.498Z",
+  "platform": "x",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "%/㟒㿧鹢匇Ѷ",
+    "description": "⢸￶汭ợ- %o",
+    "caption": "",
+    "link": "http://uKks=.test",
+    "imageUrl": "not-a-url"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

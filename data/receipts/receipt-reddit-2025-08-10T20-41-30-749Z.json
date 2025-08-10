@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:30.748Z",
+  "platform": "reddit",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "䎺볈罬䵱䴐곐橏켏ⳓ峻",
+    "description": "ꙙ",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": "http://rAs3j*%J.test"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

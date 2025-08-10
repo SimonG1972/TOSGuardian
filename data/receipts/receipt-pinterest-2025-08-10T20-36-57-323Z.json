@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:57.323Z",
+  "platform": "pinterest",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.1",
+  "fieldsSnapshot": {
+    "title": "碃뷄㯴껂끱텗",
+    "description": "撷⍻䔜᛻멣⦷빊嵼땒",
+    "caption": "",
+    "link": "ftp://example.com/file",
+    "imageUrl": "http://-O.test"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

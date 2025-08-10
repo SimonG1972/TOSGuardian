@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:41.301Z",
+  "platform": "instagram",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "ᷮ",
+    "description": "ﰓ",
+    "caption": "骔ᗕ瓌䲾㸨骭撘",
+    "link": "https://acfr.ogl////i////",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

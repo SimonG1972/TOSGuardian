@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:28.164Z",
+  "platform": "linkedin",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "apply",
+    "description": " __pr",
+    "caption": "垧摑",
+    "link": "",
+    "imageUrl": "http://i.sraq4uzyxnr.swg/p"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,31 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:28.142Z",
+  "platform": "tiktok",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "￳蟟bind같",
+    "description": "䈔笒戳㬖ꑎ땯蓡슃ﲪ",
+    "caption": "",
+    "link": "data:image/png;base64,iVBORw0KGgo=",
+    "imageUrl": "http://h-4hhi5nf455.44ap2jw4na.fh/iBhQ"
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

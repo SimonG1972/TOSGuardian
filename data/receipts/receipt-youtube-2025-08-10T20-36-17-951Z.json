@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:17.951Z",
+  "platform": "youtube",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "蟅悭嘚瓤豤폄誓뀐쾕鸆",
+    "description": "뫧蟳䫸闂ꀈ",
+    "caption": "",
+    "link": "http://|.test",
+    "imageUrl": "http://6L.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

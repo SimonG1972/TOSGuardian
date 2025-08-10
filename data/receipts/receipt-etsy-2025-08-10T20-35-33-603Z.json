@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:33.602Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "鄅諵誙摎擜튯ࢼᵦ",
+    "description": "틫ݶ嗴ᐱ㋈햦ʹ",
+    "caption": "⵫ј全﫸싳譆ぼ",
+    "link": "http://Bf.test",
+    "imageUrl": ""
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

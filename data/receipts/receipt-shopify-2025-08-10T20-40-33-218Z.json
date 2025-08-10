@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:33.217Z",
+  "platform": "shopify",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "䡎֛捙",
+    "description": "#℩མ쟑逑駄",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": "http://.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

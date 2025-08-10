@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:15.197Z",
+  "platform": "reddit",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "낵늷٤嬪樂쮯挾",
+    "description": "솃",
+    "caption": "뼵㮄Ｗ䏥",
+    "link": "",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

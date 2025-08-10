@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:54.211Z",
+  "platform": "tiktok",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "⟧偓묝ӂ쌶",
+    "description": "╶ሣ",
+    "caption": "铉혝廙",
+    "link": "",
+    "imageUrl": "http://0c89lec4.ln/"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

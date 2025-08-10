@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:42:18.278Z",
+  "platform": "reddit",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "퀔!깽",
+    "description": "",
+    "caption": "",
+    "link": "https://h0cg72w96.fd//8//k/J/)/S/R",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

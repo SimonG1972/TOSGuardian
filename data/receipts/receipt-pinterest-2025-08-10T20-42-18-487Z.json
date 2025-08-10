@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:42:18.486Z",
+  "platform": "pinterest",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.1",
+  "fieldsSnapshot": {
+    "title": "㻷",
+    "description": "铄鲋ꘆჼ",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": "https://cniybzq6-0r.cm/)iirf0_V%F0%98%A5%88"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

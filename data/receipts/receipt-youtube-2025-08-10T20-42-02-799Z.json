@@ -1,0 +1,31 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:42:02.798Z",
+  "platform": "youtube",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "ꏸ쮨쐜닛넲㔜풂",
+    "description": "",
+    "caption": "",
+    "link": "data:image/png;base64,iVBORw0KGgo=",
+    "imageUrl": "http://!aFv5Ascdh.test"
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:46.327Z",
+  "platform": "youtube",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "nProper",
+    "description": "潟ᒡ膙⠗伫",
+    "caption": "簅嵻㎲ꜣ坛｢ഷ萖絑",
+    "link": "http://4558.voo",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,30 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:52.234Z",
+  "platform": "shopify",
+  "level": "yellow",
+  "issues": [
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "瞝镧⭇䕖圗",
+    "description": "壪ݧ䑹ꈕ릥艮",
+    "caption": "₽乶ퟛ졣硥⏯膲惆",
+    "link": "data:image/png;base64,iVBORw0KGgo=",
+    "imageUrl": "http://?B.test"
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

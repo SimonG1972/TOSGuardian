@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:37:51.881Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "驿訹",
+    "description": "",
+    "caption": "",
+    "link": "ftp://example.com/file",
+    "imageUrl": "http://B2fdfqQo|I.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

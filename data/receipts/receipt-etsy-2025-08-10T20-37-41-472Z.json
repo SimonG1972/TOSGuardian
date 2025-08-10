@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:37:41.472Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "⿃뉬濗堟睒ᠪ",
+    "description": "굸ᛞ奠氰꒻ᣞ",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": ""
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

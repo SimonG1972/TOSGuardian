@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:32.978Z",
+  "platform": "linkedin",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "닡芴嶕௸ꖇ雽天",
+    "description": "",
+    "caption": "⬸ᛑ냦⦲뚚",
+    "link": "http://^:.test",
+    "imageUrl": "http://`%lZ_=Qo.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

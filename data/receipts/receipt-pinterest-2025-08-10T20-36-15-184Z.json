@@ -1,0 +1,30 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:15.184Z",
+  "platform": "pinterest",
+  "level": "yellow",
+  "issues": [
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.1",
+  "fieldsSnapshot": {
+    "title": "븕샬䯗ⓓ",
+    "description": "뿭.",
+    "caption": "䧖χ捊",
+    "link": "http://*,.test",
+    "imageUrl": "data:image/png;base64,iVBORw0KGgo="
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

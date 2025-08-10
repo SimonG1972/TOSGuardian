@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:54.218Z",
+  "platform": "pinterest",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.1",
+  "fieldsSnapshot": {
+    "title": "噮荌푻",
+    "description": "",
+    "caption": "",
+    "link": "https://9gqpc.qh//3/h/*//m//2",
+    "imageUrl": "not-a-url"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

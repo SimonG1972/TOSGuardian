@@ -1,0 +1,31 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:19.911Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "ᖯ׎ᴁ鯘ﻍ킡㗕뉣",
+    "description": "㽗Ṹ霬썶ߩ瑉櫻",
+    "caption": "",
+    "link": "data:image/png;base64,iVBORw0KGgo=",
+    "imageUrl": "http://qmyu3i87s.16.avy"
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

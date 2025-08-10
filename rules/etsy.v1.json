@@ -2,13 +2,11 @@
   "platform": "etsy",
   "version": "1.0.0",
   "updated_at": "2025-08-09T00:00:00Z",
-
   "limits": {
     "title_max": 140,
     "description_max": 10000,
     "tag_max_count": 13
   },
-
   "categories": [
     {
       "id": "medical_claims",
@@ -72,12 +70,10 @@
       }
     }
   ],
-
   "hints": {
     "description": "Write factual, non-medical benefits. Avoid disease names or treatment claims.",
     "tags": "Use up to 13 simple, descriptive tags."
   },
-
   "sources": [
     "https://help.etsy.com/hc/en-us/articles/115015663607",
     "https://help.etsy.com/hc/en-us/categories/115000076647-Policies"

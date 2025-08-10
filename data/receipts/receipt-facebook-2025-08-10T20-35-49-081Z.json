@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:49.081Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "㌍䆍噻≣朖",
+    "description": "૱",
+    "caption": "",
+    "link": "http://9uN.test",
+    "imageUrl": "http://kly-i0f.z-oz5jyi.do//"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

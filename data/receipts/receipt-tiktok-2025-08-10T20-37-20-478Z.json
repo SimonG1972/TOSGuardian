@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:37:20.476Z",
+  "platform": "tiktok",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "᷁濦쁌駖俚ᶢ债",
+    "description": "톮㣱蜣᭷䛅騦上Ꜩ",
+    "caption": "ᳵ暈똉혽\u0007䵾ៃ⋑✀",
+    "link": "ftp://example.com/file",
+    "imageUrl": "http://*H=.test"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

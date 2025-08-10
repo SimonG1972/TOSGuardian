@@ -1,0 +1,30 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:37:46.836Z",
+  "platform": "facebook",
+  "level": "yellow",
+  "issues": [
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "➎",
+    "description": "'恹&긭ᗯ⸭핷#",
+    "caption": "",
+    "link": "https://ct8f.kv/Rq%F3%84%9B%9EJf%F4%86%93%A5WmN%F3%A8%BF%81",
+    "imageUrl": "data:image/png;base64,iVBORw0KGgo="
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

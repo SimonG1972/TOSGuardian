@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:07.341Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "valueOf",
+    "description": "賭쯓峏끖鷀き㇪Ͳ",
+    "caption": "涊뫛軚",
+    "link": "not-a-url",
+    "imageUrl": "http://p-v9cxqyh2v.gae7.pt/b"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

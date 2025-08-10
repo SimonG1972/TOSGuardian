@@ -1,0 +1,41 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:07.416Z",
+  "platform": "facebook",
+  "level": "red",
+  "issues": [
+    "Graphic violence (image hint) [https://img.example.com/gore_blood_scene.jpg]",
+    "Graphic violence (image hint) [https://img.example.com/gore_blood_scene.jpg]",
+    "Image fetch failed (non-blocking) [https://img.example.com/gore_blood_scene.jpg]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Watch now",
+    "description": "Intense scene ahead",
+    "link": "",
+    "imageUrl": "https://img.example.com/gore_blood_scene.jpg"
+  },
+  "imageFindings": [
+    {
+      "url": "https://img.example.com/gore_blood_scene.jpg",
+      "severity": "high",
+      "label": "Graphic violence (image hint)"
+    },
+    {
+      "url": "https://img.example.com/gore_blood_scene.jpg",
+      "severity": "high",
+      "label": "Graphic violence (image hint)"
+    },
+    {
+      "url": "https://img.example.com/gore_blood_scene.jpg",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

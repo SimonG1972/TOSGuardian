@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:25.646Z",
+  "platform": "reddit",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "黧͊砎㮸帰ᙓ谁",
+    "description": "⅁鄼ᖌヨ藦ʚ恞",
+    "caption": "硸",
+    "link": "http://|k.test",
+    "imageUrl": "not-a-url"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

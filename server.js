@@ -1,49 +1,82 @@
-// server.js — multi-platform rule engine with patterns_ref, fuzzy+proximity medical detection,
-// tone-preserving rewrites, local receipts, optional local LLM assist (Ollama),
-// and Image checks (URL token heuristics + MIME sniff + dimensions/aspect + data: URLs).
-// Platforms supported: etsy, pinterest, shopify, youtube, tiktok, amazon, instagram,
-// facebook, x, linkedin, reddit, snapchat, ebay
+// server.js — multi-platform rule engine + uploads + rulebook mgmt + receipts viewer
+// Features: text+image checks, image heuristics, optional Ollama assist, file uploads,
+// rulebook read/write, receipts listing, health/metrics, static UI.
 
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
 const { fileTypeFromBuffer } = require('file-type');
 const imageSize = require('image-size');
+
+const platformConfig = require('./lib/platformConfig');
+const logger = require('./lib/logger');
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json({ limit: '2mb' }));
-app.use(express.static(__dirname));
+// ---------- metrics ----------
+const metrics = {
+  start_time: Date.now(),
+  requests_total: 0,
+  checks_total: 0,
+  image_checks_total: 0,
+  last_error_ts: 0
+};
 
-/* -------------------- Optional fetch polyfill -------------------- */
-let _fetch = global.fetch;
-if (typeof _fetch !== 'function') {
-  try { _fetch = require('node-fetch'); } catch { _fetch = null; }
-}
-
-/* -------------------- FS utils -------------------- */
-function readJSON(fp) {
-  try { return JSON.parse(fs.readFileSync(fp, 'utf8')); }
-  catch { return null; }
-}
+// ---------- utils ----------
 function ensureDir(dir) { fs.mkdirSync(dir, { recursive: true }); }
-
+function readJSON(fp) {
+  try { return JSON.parse(fs.readFileSync(fp, 'utf8')); } catch { return null; }
+}
+function writeJSON(fp, obj) {
+  ensureDir(path.dirname(fp));
+  fs.writeFileSync(fp, JSON.stringify(obj, null, 2));
+}
 function saveReceipt(platform, payload) {
   const dir = path.join(__dirname, 'data', 'receipts');
   ensureDir(dir);
   const ts = new Date().toISOString().replace(/[:.]/g, '-');
-  fs.writeFileSync(path.join(dir, `receipt-${platform}-${ts}.json`), JSON.stringify(payload, null, 2));
+  const id = `receipt-${platform}-${ts}.json`;
+  fs.writeFileSync(path.join(dir, id), JSON.stringify(payload, null, 2));
+  return id;
 }
 function loadRulebook(platform) {
   return readJSON(path.join(__dirname, 'rules', `${platform}.v1.json`));
 }
 function loadShared(name) {
-  // name like "shared.medical.json" or "shared.global.json" or "shared.image.json"
   return readJSON(path.join(__dirname, 'rules', name));
 }
 
-/* -------------------- string & style helpers -------------------- */
+// ---------- static + json ----------
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// ---------- request logging ----------
+app.use((req, res, next) => {
+  metrics.requests_total += 1;
+  const start = process.hrtime.bigint();
+  const reqId = (Math.random().toString(36).slice(2) + Date.now().toString(36));
+  req.id = reqId;
+  logger.info('req.start', { reqId, method: req.method, path: req.path });
+  res.on('finish', () => {
+    const durMs = Number(process.hrtime.bigint() - start) / 1e6;
+    logger.info('req.finish', { reqId, status: res.statusCode, ms: Math.round(durMs) });
+  });
+  next();
+});
+
+// ---------- fetch polyfill ----------
+let _fetch = global.fetch;
+if (typeof _fetch !== 'function') {
+  try { _fetch = require('node-fetch'); } catch { _fetch = null; }
+}
+
+// ---------- engine helpers ----------
 const normWS = s => String(s || '').replace(/\s+/g, ' ').trim();
 function detectStyle(text='') {
   const t = text || '';
@@ -65,8 +98,6 @@ function applyStyle(text, style) {
   return out;
 }
 function escapeRegex(s='') { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-
-/* -------------------- Damerau-Levenshtein (edit distance) -------------------- */
 function editDistance(a='', b='') {
   a = a.toLowerCase(); b = b.toLowerCase();
   const m = a.length, n = b.length;
@@ -84,8 +115,6 @@ function editDistance(a='', b='') {
   }
   return dp[m][n];
 }
-
-/* -------------------- tokens & proximity -------------------- */
 function tokenize(text='') { return String(text).split(/[^a-z0-9]+/i).filter(Boolean); }
 function fuzzyMatchAny(token, list, maxEd=1) { return list.some(term => editDistance(token, term) <= maxEd); }
 function verbNearNoun(text, verbs, nouns, windowSize=6) {
@@ -100,8 +129,6 @@ function verbNearNoun(text, verbs, nouns, windowSize=6) {
   }
   return false;
 }
-
-/* -------------------- patterns_ref resolver -------------------- */
 function resolvePatternsRef(ref) {
   if (!ref) return [];
   const [file, section] = ref.split('#');
@@ -116,17 +143,13 @@ function resolvePatternsRef(ref) {
     return Array.isArray(val) ? val : [];
   }
 }
-
-/* -------------------- medical rewrite -------------------- */
 function rewriteMedical(text, shared, rb) {
   const style = detectStyle(text || '');
   const verbs = shared?.claim_verbs || [];
   const diseases = shared?.diseases || [];
   const neutralNoun = (rb?.rewrite?.neutral_noun) || 'overall wellness';
   const neutralVerb = 'supports';
-
   let s = normWS(text || '');
-
   const tokens = s.split(/(\W+)/);
   for (let i=0;i<tokens.length;i++) {
     if (/^[a-z0-9]+$/i.test(tokens[i]) && fuzzyMatchAny(tokens[i], verbs, 1)) {
@@ -135,7 +158,6 @@ function rewriteMedical(text, shared, rb) {
     }
   }
   s = tokens.join('');
-
   const tokens2 = s.split(/(\W+)/);
   for (let i=0;i<tokens2.length;i++) {
     if (/^[a-z0-9]+$/i.test(tokens2[i]) && fuzzyMatchAny(tokens2[i], diseases, 1)) {
@@ -143,19 +165,14 @@ function rewriteMedical(text, shared, rb) {
     }
   }
   s = tokens2.join('');
-
   s = s.replace(/\b(help|helps)\s+supports\b/ig, 'supports')
        .replace(/\bsupports\s+supports\b/ig, 'supports')
        .replace(/\bmay\s+supports\b/ig, 'may support')
        .replace(/\bmight\s+supports\b/ig, 'might support');
-
   if (!style.usedModal) s = s.replace(/\bsupports\b/ig, 'designed to support');
   if (s.length < 15) s = 'Designed to support everyday self-care and overall wellness';
-
   return applyStyle(s, style);
 }
-
-/* -------------------- per-platform checker using rulebook -------------------- */
 function buildSearchText(fields) {
   return Object.values(fields).filter(v => typeof v === 'string').join(' ');
 }
@@ -166,48 +183,32 @@ function primaryTextField(fields) {
   return null;
 }
 
-/* -------------------- Image helpers -------------------- */
+// ---------- image helpers ----------
 const IMG_EXT = /\.(png|jpe?g|gif|webp|bmp|tiff?|svg)(\?.*)?$/i;
 
 function extractImageUrls(fields) {
   const urls = new Set();
   const seen = new WeakSet();
-
-  const KEY_HINTS = new Set([
-    'image','image_url','imageurl','imageURL','imageUrl',
-    'thumbnail','thumb','cover','banner','photo','picture','pic',
-    'images','photos','media','media_url','mediaUrl','mediaURLs','mediaUrls'
-  ]);
-
+  const KEY_HINTS = new Set(['image','image_url','thumbnail','thumb','cover','banner','photo','picture','pic','images','photos','media','media_url']);
   const URL_LIKE = /https?:\/\/[^\s"'()<>]+/ig;
   const DATA_LIKE = /data:image\/[a-z0-9+.\-]+;base64,[a-z0-9+/=\s]+/ig;
 
-  function collect(val, keyHint = '') {
+  function collect(val, keyHint='') {
     if (!val) return;
-
     if (typeof val === 'string') {
-      const looksLikeUrl  = /^https?:\/\//i.test(val);
+      const looksLikeUrl = /^https?:\/\//i.test(val);
       const looksLikeData = /^data:image\//i.test(val);
-
       if (looksLikeUrl) {
         if (IMG_EXT.test(val) || KEY_HINTS.has(keyHint.toLowerCase())) urls.add(val);
       }
       if (looksLikeData) urls.add(val);
-
-      const urlMatches = val.match(URL_LIKE) || [];
-      for (const u of urlMatches) if (IMG_EXT.test(u)) urls.add(u);
-
-      const dataMatches = val.match(DATA_LIKE) || [];
-      for (const d of dataMatches) urls.add(d);
+      (val.match(URL_LIKE)||[]).forEach(u => { if (IMG_EXT.test(u)) urls.add(u); });
+      (val.match(DATA_LIKE)||[]).forEach(d => urls.add(d));
       return;
     }
-
-    if (Array.isArray(val)) { for (const item of val) collect(item, keyHint); return; }
-
+    if (Array.isArray(val)) { val.forEach(v=>collect(v, keyHint)); return; }
     if (typeof val === 'object') {
-      if (seen.has(val)) return;
-      seen.add(val);
-
+      if (seen.has(val)) return; seen.add(val);
       const candidate = val.url || val.src || val.href;
       if (typeof candidate === 'string') {
         if (/^https?:\/\//i.test(candidate)) {
@@ -215,18 +216,14 @@ function extractImageUrls(fields) {
         }
         if (/^data:image\//i.test(candidate)) urls.add(candidate);
       }
-
-      for (const [k, v] of Object.entries(val)) collect(v, k);
-      return;
+      for (const [k,v] of Object.entries(val)) collect(v, k);
     }
   }
-
   collect(fields, '');
   return Array.from(urls);
 }
 
 function parseDataUrl(dataUrl) {
-  // data:image/png;base64,AAAA...
   const m = /^data:(image\/[a-z0-9+.\-]+);base64,([a-z0-9+/=\s]+)$/i.exec(dataUrl);
   if (!m) return null;
   const contentType = m[1].toLowerCase();
@@ -235,57 +232,32 @@ function parseDataUrl(dataUrl) {
 }
 
 async function downloadImage(url) {
-  // Supports http(s) and data:image/*
-  const dir = path.join(__dirname, 'data', 'images', 'tmp');
-  ensureDir(dir);
-
-  // data URL path (no IO, no network)
+  // also support local uploaded files served at /files/:id
   if (/^data:image\//i.test(url)) {
     const parsed = parseDataUrl(url);
     if (!parsed) throw new Error('bad_data_url');
-    return {
-      path: null,
-      size: parsed.size,
-      contentType: parsed.contentType,
-      buffer: parsed.buffer,
-      from: 'dataurl'
-    };
+    return { path: null, size: parsed.size, contentType: parsed.contentType, buffer: parsed.buffer, from: 'dataurl' };
   }
-
+  if (/^\/files\//i.test(url)) {
+    const fp = path.join(__dirname, url.replace(/^\//,''));
+    const buf = fs.readFileSync(fp);
+    const stat = fs.statSync(fp);
+    const ct = 'application/octet-stream';
+    return { path: fp, size: stat.size, contentType: ct, buffer: buf, from: 'local' };
+  }
   if (!_fetch) throw new Error('fetch unavailable');
-  const ts = Date.now();
-  const safeName = url.replace(/[^a-z0-9]+/ig, '_').slice(0,120);
-  const fp = path.join(dir, `${ts}_${safeName}`);
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(new Error('img_timeout')), 5000);
-  try {
-    const res = await _fetch(url, { signal: controller.signal });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const buf = Buffer.from(await res.arrayBuffer());
-    fs.writeFileSync(fp, buf);
-    const ct = (res.headers && (res.headers.get?.('content-type') || res.headers['content-type'])) || '';
-    return { path: fp, size: buf.length, contentType: String(ct).toLowerCase(), buffer: buf, from: 'http' };
-  } finally {
-    clearTimeout(timer);
-  }
+  const res = await _fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  const ct = (res.headers && (res.headers.get?.('content-type') || res.headers['content-type'])) || '';
+  return { path: null, size: buf.length, contentType: String(ct).toLowerCase(), buffer: buf, from: 'http' };
 }
-
-function cleanupFiles(fileInfos) {
-  for (const f of fileInfos) {
-    try { if (f && f.path && fs.existsSync(f.path)) fs.unlinkSync(f.path); } catch {}
-  }
-}
-
 async function awaitMaybeFileType(buf) {
   try { return await fileTypeFromBuffer(buf); } catch { return null; }
 }
-
-/* Image checks: URL tokens + Layers 2–4 (sniff, dimensions, simple heuristics) */
-async function detectImageIssues(url, fileInfo, { urlOnly = false } = {}) {
+async function detectImageIssues(url, fileInfo, cfg, { urlOnly = false } = {}) {
   const issues = [];
   const pathish = `${url || ''} ${fileInfo?.path || ''}`.toLowerCase();
-
-  // Boundary-ish simple search
   function hasToken(token) {
     let idx = -1;
     while ((idx = pathish.indexOf(token, idx + 1)) !== -1) {
@@ -298,30 +270,24 @@ async function detectImageIssues(url, fileInfo, { urlOnly = false } = {}) {
     return false;
   }
   function hasPattern(re) { return re.test(pathish); }
+  const configuredTerms = (cfg?.urlHeuristics?.blockTerms || []);
+  const defaultTerms = ['nsfw','onlyfans','porn','xxx','explicit','adult','gore','blood','beheading','decap','dismember','replica','counterfeit'];
+  const blockTerms = configuredTerms.length ? configuredTerms : defaultTerms;
 
-  // URL token heuristics (Layer 1)
-  if (hasToken('nsfw') || hasToken('onlyfans') || hasToken('porn') || hasToken('xxx') || hasToken('explicit') || hasToken('adult')) {
-    issues.push({ severity: 'high', label: 'NSFW / Adult content (image hint)' });
-  }
-  if (hasToken('gore') || hasToken('blood') || hasToken('beheading') || hasToken('decap') || hasToken('dismember')) {
-    issues.push({ severity: 'high', label: 'Graphic violence (image hint)' });
-  }
-  if (hasToken('replica') || hasPattern(/super[-_]?copy/i) || hasPattern(/1[:\-_]1/i)) {
-    issues.push({ severity: 'high', label: 'Counterfeit / Replica (image hint)' });
+  for (const term of blockTerms) {
+    if (hasToken(term.toLowerCase())) {
+      const label =
+        /gore|blood|beheading|decap|dismember/.test(term) ? 'Graphic violence (image hint)'
+      : /replica|counterfeit/.test(term) ? 'Counterfeit / Replica (image hint)'
+      : 'NSFW / Adult content (image hint)';
+      issues.push({ severity: 'high', label });
+    }
   }
   if (hasToken('qrcode') || hasPattern(/\bscan[-_]?me\b/i) || hasToken('qr')) {
     issues.push({ severity: 'medium', label: 'QR / Scan code solicitation (image hint)' });
   }
 
-  // Layers 2–4 only if we actually have bytes
   if (fileInfo?.buffer && fileInfo.buffer.length > 0) {
-    const sharedImg = loadShared('shared.image.json') || {};
-    const minW = Number(sharedImg.min_width || 300);
-    const minH = Number(sharedImg.min_height || 300);
-    const minAR = Number(sharedImg.min_aspect || 0.2);
-    const maxAR = Number(sharedImg.max_aspect || 5.0);
-
-    // Layer 2: MIME sniffing vs declared content-type and URL extension
     try {
       const ft = await awaitMaybeFileType(fileInfo.buffer);
       if (ft) {
@@ -330,7 +296,6 @@ async function detectImageIssues(url, fileInfo, { urlOnly = false } = {}) {
         if (declared && sniffMime && !declared.startsWith(sniffMime)) {
           issues.push({ severity: 'medium', label: `File signature (${sniffMime}) differs from declared (${declared})` });
         }
-        // extension mismatch
         const urlExtMatch = (url || '').match(/\.(\w+)(?:\?.*)?$/i);
         if (urlExtMatch && ft.ext) {
           const ext = urlExtMatch[1].toLowerCase();
@@ -342,17 +307,16 @@ async function detectImageIssues(url, fileInfo, { urlOnly = false } = {}) {
           }
         }
       }
-    } catch (e) {
-      // ignore sniff errors
-    }
-
-    // Layer 3: dimensions & aspect ratio
+    } catch {}
     try {
       const dim = imageSize(fileInfo.buffer);
       if (dim && dim.width && dim.height) {
         const { width, height } = dim;
         const ar = width / height;
-
+        const minW = Number(cfg?.image?.minWidth ?? 300);
+        const minH = Number(cfg?.image?.minHeight ?? 300);
+        const minAR = Number(cfg?.image?.minAspectRatio ?? 0.2);
+        const maxAR = Number(cfg?.image?.maxAspectRatio ?? 5.0);
         if (width < minW || height < minH) {
           issues.push({ severity: 'medium', label: `Image too small (${width}x${height}, min ${minW}x${minH})` });
         }
@@ -360,46 +324,36 @@ async function detectImageIssues(url, fileInfo, { urlOnly = false } = {}) {
           issues.push({ severity: 'medium', label: `Extreme aspect ratio (${ar.toFixed(2)})` });
         }
       }
-    } catch (e) {
-      // ignore dimension errors
-    }
-
-    // Layer 4: simple “oddity” heuristics
+    } catch {}
     try {
-      if (fileInfo.size > 0 && fileInfo.size < 1024) {
-        issues.push({ severity: 'medium', label: 'Very small image payload (<1KB)' });
+      const smallCutoff = Number(cfg?.smallPayloadCutoffBytes ?? 1024);
+      if (fileInfo.size > 0 && fileInfo.size < smallCutoff) {
+        issues.push({ severity: 'medium', label: `Very small image payload (<${smallCutoff}B)` });
       }
     } catch {}
   } else if (!urlOnly) {
-    // No bytes (and not URL-only pass) but looks like an image URL -> note
     if (url && IMG_EXT.test(url)) {
       issues.push({ severity: 'medium', label: 'Image fetch failed (non-blocking)' });
     }
   }
-
   return issues;
 }
 
-async function scanImagesFromFields(fields, { enable = true } = {}) {
+async function scanImagesFromFields(fields, cfg, { enable = true } = {}) {
   if (!enable) return { issues: [], files: [] };
   const urls = extractImageUrls(fields);
   if (urls.length === 0) return { issues: [], files: [] };
-
   const downloaded = [];
   const found = [];
-
   for (const url of urls) {
-    // URL token checks first (do NOT add fetch-failed here)
     try {
-      const urlOnlyHits = await detectImageIssues(url, null, { urlOnly: true });
+      const urlOnlyHits = await detectImageIssues(url, null, cfg, { urlOnly: true });
       urlOnlyHits.forEach(h => found.push({ url, severity: h.severity, label: h.label }));
     } catch {}
-
-    // Try to get bytes (http OR data URL)
     try {
       const info = await downloadImage(url);
       downloaded.push(info);
-      const hits = await detectImageIssues(url, info);
+      const hits = await detectImageIssues(url, info, cfg);
       hits.forEach(h => found.push({ url, severity: h.severity, label: h.label }));
     } catch (e) {
       if (IMG_EXT.test(url)) {
@@ -407,14 +361,10 @@ async function scanImagesFromFields(fields, { enable = true } = {}) {
       }
     }
   }
-
-  // Clean up temp http files
-  cleanupFiles(downloaded.filter(f => f && f.from === 'http'));
-
   return { issues: found, files: downloaded };
 }
 
-/* -------------------- main text rule check -------------------- */
+// ---------- text checker ----------
 function checkWithRulebook(platform, fields, rb) {
   const issues = [];
   let fixes = [];
@@ -473,7 +423,6 @@ function checkWithRulebook(platform, fields, rb) {
         issues.push(cat.label || 'Medical / Health Claims detected.');
         const suggestion = rewriteMedical(mainText, sharedMed, rb);
         if (suggestion && suggestion !== mainText) fixes.push({ field: mainFieldKey, suggestion });
-        console.log('RULE MATCHED:', cat.id, '=>', 'proximity(verbs~diseases)');
       }
       return;
     }
@@ -487,11 +436,11 @@ function checkWithRulebook(platform, fields, rb) {
 
     const inline = (cat.patterns || []).filter(Boolean);
     const all = [
-      ...listPatterns.map(s => ({ pattern: s, flags: 'i', _source: 'ref' })),
+      ...listPatterns.map(s => ({ pattern: s, flags: 'i' })),
       ...inline.map(p => {
-        if (typeof p === 'string') return { pattern: p, flags: 'i', _source: 'inline:string' };
+        if (typeof p === 'string') return { pattern: p, flags: 'i' };
         if (p && typeof p === 'object' && typeof p.pattern === 'string') {
-          return { pattern: p.pattern, flags: p.flags || 'i', _source: 'inline:object' };
+          return { pattern: p.pattern, flags: p.flags || 'i' };
         }
         return null;
       }).filter(Boolean)
@@ -502,8 +451,7 @@ function checkWithRulebook(platform, fields, rb) {
         const re = new RegExp(entry.pattern, entry.flags || 'i');
         if (re.test(searchable)) {
           if (cat.severity === 'high') high = true;
-          console.log('RULE MATCHED:', cat.id, '=>', `/${entry.pattern}/${entry.flags || 'i'}`);
-          if (!issues.some(x => x === (cat.label || 'Policy issue detected.'))) {
+          if (!issues.includes(cat.label || 'Policy issue detected.')) {
             issues.push(cat.label || 'Policy issue detected.');
           }
           if (cat.rewrite?.find) {
@@ -514,46 +462,27 @@ function checkWithRulebook(platform, fields, rb) {
             }
           }
         }
-      } catch (e) {
-        console.warn('Bad regex in category', cat.id, 'pattern:', entry && entry.pattern, 'flags:', entry && entry.flags, e.message);
-      }
-    }
-
-    if (Array.isArray(cat.checks)) {
-      cat.checks.forEach(chk => {
-        if (chk === 'url_scheme_http_https' && link) {
-          if (!/^https?:\/\//i.test(link)) {
-            if (cat.severity === 'high') high = true;
-            issues.push(cat.label || 'Link policy issue.');
-            console.log('RULE MATCHED:', cat.id, '=>', 'check:url_scheme_http_https');
-          }
-        }
-      });
+      } catch {}
     }
   });
 
   return { issues, fixes, high };
 }
-
-/* -------------------- router helpers -------------------- */
 function runChecks({ platform, fields }) {
   const p = String(platform||'').toLowerCase();
   const rb = loadRulebook(p);
   if (!rb) return { issues:[`No rulebook found for ${p}`], fixes:[], high:true };
-
   const globalRules = loadShared('shared.global.json');
   if (globalRules && Array.isArray(globalRules.categories)) {
     rb.categories = [...(rb.categories || []), ...globalRules.categories];
   }
   return checkWithRulebook(p, fields, rb);
 }
-
 function degradeToNeutral(original) {
   const style = detectStyle(original || '');
   const safe = 'Designed for general use and compliant with platform guidelines.';
   return applyStyle(safe, style);
 }
-
 function buildModelPrompt(platform, fields, platformRules) {
   const textToCheck = Object.values(fields).filter(v => typeof v === 'string' && v.trim()).join('\n');
   return `
@@ -573,7 +502,6 @@ Content:
 ${textToCheck}
 `.trim();
 }
-
 async function callOllama(prompt, modelName = 'llama3.1:8b', timeoutMs = 2500) {
   if (!_fetch) throw new Error('No fetch available; install node-fetch or use Node 18+.');
   const controller = new AbortController();
@@ -592,7 +520,6 @@ async function callOllama(prompt, modelName = 'llama3.1:8b', timeoutMs = 2500) {
     clearTimeout(timer);
   }
 }
-
 function parseModelOutput(text='') {
   const labelMatch = text.match(/Label:\s*(green|yellow|red)/i);
   const rewriteMatch = text.match(/Rewrite:\s*([\s\S]*)$/i);
@@ -602,21 +529,23 @@ function parseModelOutput(text='') {
   };
 }
 
-/* -------------------- router -------------------- */
+// ---------- API: compliance check ----------
 app.post('/api/check', async (req,res)=>{
   try{
     const { platform, fields, strictMode = false, saveReceipts, scanImages = true } = req.body || {};
     if (!platform || !fields) return res.status(400).json({ error:'Missing platform or fields' });
 
-    // 1) Text checks
+    const cfg = platformConfig.get(String(platform || 'default').toLowerCase());
+    metrics.checks_total += 1;
+
     let { issues, fixes, high } = runChecks({ platform, fields });
     let level = issues.length===0 ? 'green' : (high ? 'red' : 'yellow');
 
-    // 2) Image checks
     let imageFindings = [];
     if (scanImages) {
       try {
-        const imageScan = await scanImagesFromFields(fields, { enable: true });
+        const imageScan = await scanImagesFromFields(fields, cfg, { enable: true });
+        metrics.image_checks_total += 1;
         imageFindings = imageScan.issues || [];
         if (imageFindings.length > 0) {
           for (const hit of imageFindings) {
@@ -626,11 +555,12 @@ app.post('/api/check', async (req,res)=>{
           level = issues.length===0 ? 'green' : (high ? 'red' : 'yellow');
         }
       } catch (e) {
-        console.warn('Image scan error:', e && e.message ? e.message : String(e));
+        logger.warn('image.scan.error', { err: e && e.message ? e.message : String(e) });
+        metrics.last_error_ts = Date.now();
       }
     }
 
-    // 3) Re-check suggestion (strict mode can downgrade risk)
+    // re-check suggestion
     const mainField = primaryTextField(fields);
     const suggested = fixes.find(f => mainField && f.field === mainField);
     if (suggested && suggested.suggestion) {
@@ -645,7 +575,7 @@ app.post('/api/check', async (req,res)=>{
       }
     }
 
-    // 4) Optional local model assist
+    // optional model assist
     let model = null;
     if (level !== 'green') {
       try {
@@ -686,8 +616,10 @@ app.post('/api/check', async (req,res)=>{
     }
 
     const shouldSave = (typeof saveReceipts === 'boolean') ? saveReceipts : true;
+    let receiptId = null;
     if (shouldSave) {
-      saveReceipt(platform, {
+      receiptId = saveReceipt(platform, {
+        id: null,
         timestamp: new Date().toISOString(),
         platform, level, issues,
         fixesCount: (fixes || []).length,
@@ -699,12 +631,157 @@ app.post('/api/check', async (req,res)=>{
       });
     }
 
-    res.json({ level, issues, fixes, model, imageFindings });
+    res.json({ level, issues, fixes, model, imageFindings, receiptId });
 
   }catch(e){
-    console.error(e);
+    logger.error('route.error', { err: e && e.message ? e.message : String(e) });
+    metrics.last_error_ts = Date.now();
     res.status(500).json({ error:'Server error' });
   }
 });
 
-app.listen(PORT, ()=>console.log(`TOS Guardian running at http://localhost:${PORT}`));
+// ---------- uploads (images + pdf) ----------
+const uploadDir = path.join(__dirname, 'files', 'uploads');
+ensureDir(uploadDir);
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB
+});
+
+app.post('/api/upload', upload.array('files', 12), async (req, res) => {
+  try {
+    const out = [];
+    for (const f of req.files || []) {
+      const id = `${Date.now()}_${Math.random().toString(36).slice(2)}_${f.originalname.replace(/[^\w.\-]+/g,'_')}`;
+      const dest = path.join(uploadDir, id);
+      fs.writeFileSync(dest, f.buffer);
+      out.push({ name: f.originalname, url: `/files/uploads/${id}`, size: f.size });
+    }
+    res.json({ files: out });
+  } catch (e) {
+    res.status(500).json({ error: String(e.message || e) });
+  }
+});
+
+// serve uploaded files
+app.use('/files', express.static(path.join(__dirname, 'files'), { fallthrough: false }));
+
+// ---------- rulebook management (local dev only) ----------
+app.get('/api/rules', (req, res) => {
+  try {
+    const dir = path.join(__dirname, 'rules');
+    const files = fs.readdirSync(dir).filter(f => /\.v1\.json$/i.test(f));
+    const platforms = files.map(f => f.replace(/\.v1\.json$/i,''));
+    res.json({ platforms });
+  } catch (e) {
+    res.status(500).json({ error: String(e.message || e) });
+  }
+});
+app.get('/api/rules/:platform', (req, res) => {
+  const rb = loadRulebook(req.params.platform.toLowerCase());
+  if (!rb) return res.status(404).json({ error: 'Rulebook not found' });
+  res.json(rb);
+});
+app.put('/api/rules/:platform', (req, res) => {
+  try {
+    const platform = req.params.platform.toLowerCase();
+    const body = req.body;
+    if (!body || typeof body !== 'object') return res.status(400).json({ error: 'Invalid JSON' });
+    const fp = path.join(__dirname, 'rules', `${platform}.v1.json`);
+    writeJSON(fp, body);
+    res.json({ ok: true });
+  } catch (e) {
+    res.status(500).json({ error: String(e.message || e) });
+  }
+});
+
+// ---------- receipts viewer ----------
+app.get('/api/receipts', (req, res) => {
+  try {
+    const dir = path.join(__dirname, 'data', 'receipts');
+    ensureDir(dir);
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort().reverse();
+    const limit = Math.max(1, Math.min(50, Number(req.query.limit || 20)));
+    const list = files.slice(0, limit).map(name => {
+      const fp = path.join(dir, name);
+      let level = 'unknown', platform = 'unknown', timestamp = null;
+      try {
+        const j = JSON.parse(fs.readFileSync(fp, 'utf8'));
+        level = j.level || 'unknown';
+        platform = j.platform || 'unknown';
+        timestamp = j.timestamp || null;
+      } catch {}
+      return { id: name, platform, level, timestamp };
+    });
+    res.json({ receipts: list });
+  } catch (e) {
+    res.status(500).json({ error: String(e.message || e) });
+  }
+});
+app.get('/api/receipts/:id', (req, res) => {
+  try {
+    const fp = path.join(__dirname, 'data', 'receipts', req.params.id);
+    if (!fs.existsSync(fp)) return res.status(404).json({ error: 'Not found' });
+    res.type('application/json').send(fs.readFileSync(fp, 'utf8'));
+  } catch (e) {
+    res.status(500).json({ error: String(e.message || e) });
+  }
+});
+
+// ---------- health/ready/metrics ----------
+app.get('/healthz', (req, res) => {
+  try {
+    const cfgOk = !!platformConfig.get('default');
+    const upMs = Date.now() - metrics.start_time;
+    res.json({
+      status: 'ok',
+      uptime_ms: upMs,
+      node: process.version,
+      checks: { config_loaded: !!cfgOk },
+      counters: {
+        requests_total: metrics.requests_total,
+        checks_total: metrics.checks_total,
+        image_checks_total: metrics.image_checks_total,
+        last_error_ts: metrics.last_error_ts || null
+      }
+    });
+  } catch (e) {
+    metrics.last_error_ts = Date.now();
+    res.status(500).json({ status: 'degraded', error: String(e.message || e) });
+  }
+});
+app.get('/readyz', (req, res) => {
+  try {
+    const cfgOk = !!platformConfig.get('default');
+    if (!cfgOk) return res.status(500).json({ status: 'degraded', reason: 'config' });
+    res.json({ status: 'ready' });
+  } catch (e) {
+    metrics.last_error_ts = Date.now();
+    res.status(500).json({ status: 'degraded', error: String(e.message || e) });
+  }
+});
+app.get('/metrics', (req, res) => {
+  res.set('Content-Type', 'text/plain; version=0.0.4');
+  const upSec = Math.floor((Date.now() - metrics.start_time) / 1000);
+  const lines = [
+    '# HELP tosguardian_uptime_seconds Process uptime in seconds',
+    '# TYPE tosguardian_uptime_seconds gauge',
+    `tosguardian_uptime_seconds ${upSec}`,
+    '# HELP tosguardian_requests_total Total HTTP requests',
+    '# TYPE tosguardian_requests_total counter',
+    `tosguardian_requests_total ${metrics.requests_total}`,
+    '# HELP tosguardian_checks_total Total /api/check invocations',
+    '# TYPE tosguardian_checks_total counter',
+    `tosguardian_checks_total ${metrics.checks_total}`,
+    '# HELP tosguardian_image_checks_total Total image scans performed',
+    '# TYPE tosguardian_image_checks_total counter',
+    `tosguardian_image_checks_total ${metrics.image_checks_total}`,
+    '# HELP tosguardian_last_error_ts Unix ms timestamp of last error (0 if none)',
+    '# TYPE tosguardian_last_error_ts gauge',
+    `tosguardian_last_error_ts ${metrics.last_error_ts || 0}`
+  ];
+  res.send(lines.join('\n') + '\n');
+});
+
+// ---------- start ----------
+app.listen(PORT, () => logger.info('server.started', { port: PORT }));

@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:14.982Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "valueOf",
+    "description": "Ȿᚥ룛ᜀ醎큻䨶둶",
+    "caption": "炒",
+    "link": "not-a-url",
+    "imageUrl": "http://agf.slcwe.vw"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

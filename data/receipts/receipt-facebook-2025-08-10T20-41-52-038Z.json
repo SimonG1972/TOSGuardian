@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:41:52.037Z",
+  "platform": "facebook",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "ᨧ늻᡿擾冮餟",
+    "description": "ڦ惋탪",
+    "caption": "౓䖢ఝ澝ᖍ圏஢",
+    "link": "ftp://example.com/file",
+    "imageUrl": "http://lca.xre"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

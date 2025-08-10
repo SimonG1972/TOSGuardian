@@ -1,0 +1,31 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:40.906Z",
+  "platform": "linkedin",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "￱翘鴯ȇꪃ皓*",
+    "description": "蕵䬇똍%棧(ܟ",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": "data:image/png;base64,iVBORw0KGgo="
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:39:45.931Z",
+  "platform": "x",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "뼕",
+    "description": "灥齻┄잒ᨲ榳",
+    "caption": "",
+    "link": "ftp://example.com/file",
+    "imageUrl": "https://fzfc.8y9k11e.xky/o-o"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

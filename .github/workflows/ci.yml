@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,19 +18,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          npm ci || npm install
+        run: npm ci || npm install
 
+      # Install browsers and Linux deps Playwright needs
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      # 1) Rulebook schema validation (no server needed)
+      - name: Rulebook schema tests
+        run: npm run test:rules
+
+      # 2) API smoke (spins up server via script)
+      - name: API smoke tests
+        run: npm run test:api
+
+      # 3) Fuzz tests for /api/check (spins up server via script)
+      - name: API fuzz tests
+        run: npm run test:fuzz
+
+      # 4) Image smokes (your existing suites)
       - name: Smoke image tests
-        run: |
-          nohup node server.js >/dev/null 2>&1 &
-          npx wait-on http-get://localhost:3000
-          node tests/smoke_images.js
+        run: npm run test:images
 
       - name: Deep image tests
-        run: |
-          nohup node server.js >/dev/null 2>&1 &
-          npx wait-on http-get://localhost:3000
-          node tests/smoke_images_deep.js
+        run: npm run test:images:deep
+
+      # 5) Headless UI E2E (Playwright; script starts/stops server)
+      - name: UI tests
+        run: npm run test:ui

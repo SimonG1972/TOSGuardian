@@ -1,0 +1,30 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:25.230Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "",
+    "description": "顋튛ꝰὣⴝ㜸᨞越⫖",
+    "caption": "",
+    "link": "http://78.ts/a////%F2%B6%9D%85///4/)",
+    "imageUrl": "data:image/png;base64,iVBORw0KGgo="
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

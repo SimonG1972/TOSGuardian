@@ -1,0 +1,30 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:42:26.277Z",
+  "platform": "etsy",
+  "level": "yellow",
+  "issues": [
+    "Very small image payload (<1300B) [data:image/png;base64,iVBORw0KGgo=]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "酗༛쓻翲⑏봋氣ՏՕ⾋",
+    "description": "紻᪠ᇀ뻔텤ถ",
+    "caption": "",
+    "link": "data:image/png;base64,iVBORw0KGgo=",
+    "imageUrl": "https://d3lrt4.vbv"
+  },
+  "imageFindings": [
+    {
+      "url": "data:image/png;base64,iVBORw0KGgo=",
+      "severity": "medium",
+      "label": "Very small image payload (<1300B)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

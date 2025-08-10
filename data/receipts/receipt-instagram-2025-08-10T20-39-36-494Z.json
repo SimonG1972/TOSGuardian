@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:39:36.494Z",
+  "platform": "instagram",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Sunday garden tips",
+    "description": "Sharing helpful tips for repotting plants.",
+    "caption": "Happy weekend!",
+    "link": "",
+    "imageUrl": ""
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

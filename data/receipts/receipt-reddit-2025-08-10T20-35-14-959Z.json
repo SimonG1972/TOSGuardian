@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:14.958Z",
+  "platform": "reddit",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "prototype",
+    "description": "见벦造逅籿ؾ鞧",
+    "caption": "洉",
+    "link": "",
+    "imageUrl": "http://zu.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:42:10.705Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "죭埾▦餛䛬෢誽担◰",
+    "description": "猟昭㖪꥿絪",
+    "caption": "",
+    "link": "not-a-url",
+    "imageUrl": "https://iwi5.t.pl//P/"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": true
+}

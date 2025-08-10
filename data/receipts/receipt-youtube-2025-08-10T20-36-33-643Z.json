@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:33.643Z",
+  "platform": "youtube",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "",
+    "description": "ꮄⲷ⡾",
+    "caption": "쌎",
+    "link": "",
+    "imageUrl": "https://710f2.bn/H/5"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:35:20.497Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "prototype",
+    "description": "䥫퐯✯뼛ᔫ쒋⠶榦",
+    "caption": "끾䷯눨ㇷ黯厞",
+    "link": "https://jli.tc",
+    "imageUrl": "not-a-url"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

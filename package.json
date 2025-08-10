@@ -14,13 +14,23 @@
     "test:smoke": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_global.js\"",
     "test:images": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_images.js\"",
     "test:images:deep": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_images_deep.js\"",
-    "test:ci": "npm run test:images && npm run test:images:deep",
+    "test:api": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_api.js\"",
+    "test:fuzz": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/fuzz_api.js\"",
+    "test:rules": "node tests/rulebook_schema.test.js",
+    "pw:install": "playwright install",
+    "test:ui": "concurrently -k -s first -n SERVER,UI \"node server.js\" \"wait-on http-get://localhost:3000 && npx playwright test --reporter=list\"",
+    "test:all": "npm run test:rules && npm run test:api && npm run test:fuzz && npm run test:ui",
+    "test:ci": "npm run test:images && npm run test:images:deep && npm run test:api && npm run test:rules && npm run test:fuzz && npm run test:ui",
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@playwright/test": "^1.47.2",
+    "ajv": "^8.17.1",
     "concurrently": "^9.0.0",
+    "fast-check": "^3.19.0",
     "husky": "^9.1.7",
     "nodemon": "^3.0.0",
+    "playwright": "^1.47.2",
     "wait-on": "^7.2.0"
   },
   "dependencies": {
@@ -29,6 +39,7 @@
     "file-type": "^18.7.0",
     "form-data": "^4.0.4",
     "image-size": "^1.2.1",
+    "multer": "^2.0.2",
     "sharp": "^0.33.5"
   }
 }

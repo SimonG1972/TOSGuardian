@@ -1,0 +1,21 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T19:02:25.396Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "terracotta pots",
+    "caption": "",
+    "description": "hand mad pots",
+    "link": "",
+    "images": [
+      "/files/uploads/1754852471326_jksgh5eek7n_cover_image_wabi_sabi_bitsnpieces_site.png"
+    ]
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:40:43.476Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "텥co",
+    "description": "+￸",
+    "caption": "ණ㤦",
+    "link": "http://valueOf.test",
+    "imageUrl": "https://526bb.mlx"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

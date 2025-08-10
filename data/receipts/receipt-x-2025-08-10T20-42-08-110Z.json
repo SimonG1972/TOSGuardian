@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:42:08.110Z",
+  "platform": "x",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "寗벻蠥",
+    "description": "ᐳᚵ嚜ഃᱬꇬ앍",
+    "caption": "䅗垨蠽⹕",
+    "link": "http://9IIax.test",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

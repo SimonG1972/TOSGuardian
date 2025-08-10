@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2025-08-10T21:31:02.839Z",
+  "results": [
+    {
+      "platform": "tiktok",
+      "text": "Nice ceramic mug",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "tiktok",
+      "text": "Prevents cancer",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Medical Misinformation / Health Claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "tiktok",
+      "text": "Lose 20 pounds in 10 days",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Rapid weight-loss / medical claims"
+      ],
+      "model": "model_error:Ollama HTTP 500"
+    },
+    {
+      "platform": "youtube",
+      "text": "Relaxing lo-fi beats",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "youtube",
+      "text": "Guaranteed cure for insomnia",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Rapid weight-loss / medical claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "amazon",
+      "text": "Stainless steel water bottle",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "amazon",
+      "text": "Official replica designer bag",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Counterfeit / Intellectual Property Violations",
+        "Counterfeit / replica claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "shopify",
+      "text": "Handmade soap gift set",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "shopify",
+      "text": "Miracle cure for acne",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Medical / Health Claims",
+        "Rapid weight-loss / medical claims"
+      ],
+      "model": "model_error:Ollama HTTP 500"
+    },
+    {
+      "platform": "pinterest",
+      "text": "Cozy fall decor ideas",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "pinterest",
+      "text": "Lose weight fast with this tea",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Rapid weight-loss / medical claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "etsy",
+      "text": "Minimalist print for bedroom",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "etsy",
+      "text": "Prevents cancer natural salve",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Medical / Health Claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "facebook",
+      "text": "Handmade ceramic mug",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "facebook",
+      "text": "Prevents cancer",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Medical / Health Claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "facebook",
+      "text": "Lose 20 pounds in 10 days",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Rapid weight-loss / medical claims"
+      ],
+      "model": "model_error:Ollama HTTP 500"
+    },
+    {
+      "platform": "facebook",
+      "text": "Official replica designer bag",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Counterfeit / Replica",
+        "Counterfeit / replica claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "instagram",
+      "text": "Beautiful handmade mug",
+      "expect": "green",
+      "got": "green",
+      "issues": [],
+      "model": null
+    },
+    {
+      "platform": "instagram",
+      "text": "Cures cancer",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Medical / Health Claims"
+      ],
+      "model": "model_error:Ollama HTTP 500"
+    },
+    {
+      "platform": "instagram",
+      "text": "Burn fat fast with this smoothie",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Rapid weight-loss / medical claims"
+      ],
+      "model": "model_error:ollama_timeout"
+    },
+    {
+      "platform": "instagram",
+      "text": "Official replica designer shoes",
+      "expect": "red",
+      "got": "red",
+      "issues": [
+        "Counterfeit / replica claims"
+      ],
+      "model": "model_error:Ollama HTTP 500"
+    }
+  ]
+}

@@ -2,16 +2,13 @@
   "platform": "instagram",
   "version": "1.0.0",
   "updated_at": "2025-08-09T00:00:00Z",
-
   "limits": {
     "caption_max": 2200,
     "hashtags_max_count": 30
   },
-
   "rewrite": {
     "neutral_noun": "overall wellness"
   },
-
   "categories": [
     {
       "id": "medical_health_claims",
@@ -67,7 +64,9 @@
       "id": "link_quality",
       "label": "Destination Link Quality",
       "severity": "medium",
-      "checks": ["url_scheme_http_https"]
+      "checks": [
+        "url_scheme_http_https"
+      ]
     }
   ]
 }

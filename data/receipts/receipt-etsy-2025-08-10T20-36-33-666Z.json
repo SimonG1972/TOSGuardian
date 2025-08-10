@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:33.666Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "힑粔$",
+    "description": "麯合꧱짻猘䕛醐瀕蠘ࡺ",
+    "caption": "褕ぜ븖뭽",
+    "link": "ftp://example.com/file",
+    "imageUrl": "https://tm73oms3hj.qz/%F3%80%84%A9//"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

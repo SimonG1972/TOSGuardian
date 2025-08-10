@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:36:33.655Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "焎\f瘡",
+    "description": "'",
+    "caption": "㹰描",
+    "link": "http://Xl.test",
+    "imageUrl": "http://.test"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

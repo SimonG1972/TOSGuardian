@@ -1,0 +1,18 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:39:39.213Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "Handmade ceramic mug",
+    "description": "Stoneware mug, lead-free glaze, dishwasher-safe.",
+    "link": "",
+    "imageUrl": ""
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

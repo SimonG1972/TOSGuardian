@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:37:02.630Z",
+  "platform": "linkedin",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "轄쯠詪ꮐ뚦预븪挫㸆",
+    "description": "쌴氞Ẍᕶ셿岥〲ズ㳙",
+    "caption": "䄉ꉟ뭞혼㵙풿",
+    "link": "",
+    "imageUrl": "ftp://example.com/file"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": true
+}

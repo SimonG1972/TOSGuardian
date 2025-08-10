@@ -1,0 +1,24 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:37:31.143Z",
+  "platform": "youtube",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "⿦",
+    "description": "⨞㷖焰╒ㅰ뾺嘙",
+    "caption": "",
+    "link": "ftp://example.com/file",
+    "imageUrl": "http://!\".test"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

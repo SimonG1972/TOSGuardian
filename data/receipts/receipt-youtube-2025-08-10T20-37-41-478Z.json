@@ -1,0 +1,19 @@
+{
+  "id": null,
+  "timestamp": "2025-08-10T20:37:41.477Z",
+  "platform": "youtube",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "title": "ࠚ蟿좇縿쾞",
+    "description": "෻",
+    "caption": "㷈᚜絿粢젰슛舒ᙬ踝귊",
+    "link": "http://(.test",
+    "imageUrl": "http://5.eo/////K/////"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}
