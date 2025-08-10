@@ -16,6 +16,15 @@
       "guidance": "Avoid steering users to off-platform payments or private channels."
     },
     {
+      "id": "global-offplatform-links",
+      "label": "Off-platform Payment/Messaging Links",
+      "severity": "high",
+      "patterns": [
+        "https?:\\/\\/(?:t\\.me|telegram\\.org|wa\\.me|whatsapp\\.com|cash\\.app|venmo\\.com|zellepay\\.com|paypal\\.me|discord\\.gg)\\/\\S+"
+      ],
+      "guidance": "Block links that direct users to off-platform payment or messaging services."
+    },
+    {
       "id": "global-exaggerated-claims",
       "label": "Exaggerated / Misleading Claims",
       "severity": "medium",
@@ -31,6 +40,36 @@
       }
     },
     {
+      "id": "global-earnings-claims",
+      "label": "Earnings / Get-Rich-Quick Claims",
+      "severity": "high",
+      "patterns": [
+        "make\\s*\\$?\\s*\\d{2,}[kK]?\\s*(?:a|per)\\s*(?:day|week|month)",
+        "\\$\\s*\\d{2,}[kK]?\\s*(?:a|per)\\s*(?:day|week|month)",
+        "earn\\s*\\$?\\s*\\d{2,}[kK]?\\s*(?:fast|quick(?:ly)?)",
+        "financial\\s+freedom\\s+in\\s+\\d+\\s+(?:days?|weeks?)",
+        "passive\\s+income\\s+on\\s+autopilot",
+        "guaranteed\\s+profits?",
+        "no\\s+experience\\s+required\\s+earn\\s*\\$?\\s*\\d+"
+      ],
+      "guidance": "Flag unrealistic, time-bound, or guaranteed earning/ROI claims."
+    },
+    {
+      "id": "global-giveaway-scams",
+      "label": "Giveaway / Prize Scams",
+      "severity": "high",
+      "patterns": [
+        { "pattern": "tag\\s+\\d+\\s+friends?\\s+to\\s+win", "flags": "i" },
+        { "pattern": "tag\\s+friends?\\s+to\\s+win", "flags": "i" },
+        { "pattern": "dm\\s+(?:us|me)\\s+to\\s+claim\\s+(?:prize|giveaway|reward)", "flags": "i" },
+        { "pattern": "congrats?[,!\\s]*(?:to\\s+the\\s+)?winners?", "flags": "i" },
+        { "pattern": "you(?:'|’)?ve\\s+won", "flags": "i" },
+        { "pattern": "gift\\s+card\\s+giveaway", "flags": "i" },
+        { "pattern": "comment\\s+(?:to|and)\\s+(?:win|enter)", "flags": "i" }
+      ],
+      "guidance": "Block common giveaway/prize scam patterns that solicit engagement or DMs to claim rewards."
+    },
+    {
       "id": "global-profanity-lite",
       "label": "Strong Profanity / Slurs (lite demo blocklist)",
       "severity": "medium",
@@ -44,12 +83,12 @@
       "label": "Rapid weight-loss / medical claims",
       "severity": "high",
       "patterns": [
-        "lose\\s+\\d+\\s+pounds?\\s+in\\s+\\d+\\s+(days?|weeks?)",
-        "lose\\s+weight\\s+fast",
-        "rapid\\s+weight\\s+loss",
-        "guaranteed\\s+cure",
-        "miracle\\s+cure",
-        "\\b(burn|lose)\\s+(fat|weight)\\s+(fast|quick(?:ly)?)\\b"
+        { "pattern": "lose\\s+\\d+\\s+pounds?\\s+in\\s+\\d+\\s+(days?|weeks?)", "flags": "i" },
+        { "pattern": "lose\\s+weight\\s+fast", "flags": "i" },
+        { "pattern": "rapid\\s+weight\\s+loss", "flags": "i" },
+        { "pattern": "guaranteed\\s+cure", "flags": "i" },
+        { "pattern": "miracle\\s+cure", "flags": "i" },
+        { "pattern": "\\b(burn|lose)\\s+(fat|weight)\\s+(fast|quick(?:ly)?)\\b", "flags": "i" }
       ],
       "rewrite": {
         "find": "(lose\\s+\\d+\\s+pounds?\\s+in\\s+\\d+\\s+(?:days?|weeks?)|lose\\s+weight\\s+fast|rapid\\s+weight\\s+loss|guaranteed\\s+cure|miracle\\s+cure)",
