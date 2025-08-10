@@ -259,6 +259,12 @@ app.put("/api/rules/:platform", (req, res) => {
 // ---------- Health ----------
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
+// CI/health probe
+app.get('/healthz', (req, res) => {
+  res.type('text').send('ok'); // 200 by default
+});
+
+
 // ---------- Start ----------
 app.listen(PORT, () => {
   console.log(`TOS Guardian running at http://localhost:${PORT}`);
