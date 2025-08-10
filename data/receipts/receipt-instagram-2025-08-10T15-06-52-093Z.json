@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T15:06:52.092Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Counterfeit / replica claims"
+  ],
+  "fixesCount": 1,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "1:1 replica shoes"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

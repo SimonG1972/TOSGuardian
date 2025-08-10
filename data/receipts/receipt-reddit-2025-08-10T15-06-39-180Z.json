@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-10T15:06:39.179Z",
+  "platform": "reddit",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Open-source tool on GitHub"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T15:48:20.889Z",
+  "platform": "reddit",
+  "level": "red",
+  "issues": [
+    "Malware / Suspicious Files"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Free hack wallhack"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

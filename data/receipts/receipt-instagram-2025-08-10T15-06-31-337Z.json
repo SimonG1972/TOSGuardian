@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T15:06:31.336Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Crypto / Forex Hype"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Crypto signals group: 100x coin"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

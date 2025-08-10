@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-08-10T15:05:49.541Z",
+  "platform": "facebook",
+  "level": "red",
+  "issues": [
+    "Graphic violence (image hint) [https://img.example.com/gore_blood_scene.jpg]",
+    "Image HEAD error (fetch failed) [https://img.example.com/gore_blood_scene.jpg]",
+    "Image fetch failed (non-blocking) [https://img.example.com/gore_blood_scene.jpg]",
+    "Hybrid image risk: RED [https://img.example.com/gore_blood_scene.jpg]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Watch now https://img.example.com/gore_blood_scene.jpg"
+  },
+  "imageFindings": [
+    {
+      "url": "https://img.example.com/gore_blood_scene.jpg",
+      "severity": "high",
+      "label": "Graphic violence (image hint)",
+      "score": 50
+    },
+    {
+      "url": "https://img.example.com/gore_blood_scene.jpg",
+      "severity": "medium",
+      "label": "Image HEAD error (fetch failed)",
+      "score": 10
+    },
+    {
+      "url": "https://img.example.com/gore_blood_scene.jpg",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)",
+      "score": 10
+    },
+    {
+      "url": "https://img.example.com/gore_blood_scene.jpg",
+      "severity": "high",
+      "label": "Hybrid image risk: RED",
+      "score": 0
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-08-10T15:47:56.757Z",
+  "platform": "etsy",
+  "level": "yellow",
+  "issues": [
+    "Absolute / Guaranteed Claims",
+    "Exaggerated / Misleading Claims"
+  ],
+  "fixesCount": 3,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Instant results no risk"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

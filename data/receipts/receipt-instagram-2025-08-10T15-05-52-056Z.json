@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-08-10T15:05:52.056Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Counterfeit / replica claims",
+    "Counterfeit / Replica (image hint) [https://img.example.com/handbag_1-1_replica.jpg]",
+    "Image HEAD error (fetch failed) [https://img.example.com/handbag_1-1_replica.jpg]",
+    "Image fetch failed (non-blocking) [https://img.example.com/handbag_1-1_replica.jpg]",
+    "Hybrid image risk: YELLOW [https://img.example.com/handbag_1-1_replica.jpg]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "New drop https://img.example.com/handbag_1-1_replica.jpg"
+  },
+  "imageFindings": [
+    {
+      "url": "https://img.example.com/handbag_1-1_replica.jpg",
+      "severity": "medium",
+      "label": "Counterfeit / Replica (image hint)",
+      "score": 25
+    },
+    {
+      "url": "https://img.example.com/handbag_1-1_replica.jpg",
+      "severity": "medium",
+      "label": "Image HEAD error (fetch failed)",
+      "score": 10
+    },
+    {
+      "url": "https://img.example.com/handbag_1-1_replica.jpg",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)",
+      "score": 10
+    },
+    {
+      "url": "https://img.example.com/handbag_1-1_replica.jpg",
+      "severity": "medium",
+      "label": "Hybrid image risk: YELLOW",
+      "score": 0
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

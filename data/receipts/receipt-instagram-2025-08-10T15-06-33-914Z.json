@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T15:06:33.913Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Adult / Violent Content"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Link in bio for NSFW"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-10T15:48:31.409Z",
+  "platform": "etsy",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Handmade mug"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

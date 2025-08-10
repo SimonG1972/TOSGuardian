@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-08-10T15:48:23.413Z",
+  "platform": "linkedin",
+  "level": "red",
+  "issues": [
+    "Clickbait / Spammy Language",
+    "Phishing Language"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Click here to verify your identity"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

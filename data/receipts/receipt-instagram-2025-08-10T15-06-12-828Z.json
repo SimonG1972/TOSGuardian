@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T15:06:12.827Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Earnings / Get-Rich-Quick Claims"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Make $500 a day passively"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

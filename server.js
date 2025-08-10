@@ -1,11 +1,14 @@
 // server.js — multi-platform rule engine with patterns_ref, fuzzy+proximity medical detection,
 // tone-preserving rewrites, local receipts, optional local LLM assist (Ollama),
-// and starter Image checks (URL extraction + lightweight heuristics).
-// Platforms supported: etsy, pinterest, shopify, youtube, tiktok, amazon, instagram, facebook, x, linkedin, reddit, snapchat, ebay
+// and Image checks (URL token heuristics + MIME sniff + dimensions/aspect + data: URLs).
+// Platforms supported: etsy, pinterest, shopify, youtube, tiktok, amazon, instagram,
+// facebook, x, linkedin, reddit, snapchat, ebay
 
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { fileTypeFromBuffer } = require('file-type');
+const imageSize = require('image-size');
 
 const app = express();
 const PORT = 3000;
@@ -36,7 +39,7 @@ function loadRulebook(platform) {
   return readJSON(path.join(__dirname, 'rules', `${platform}.v1.json`));
 }
 function loadShared(name) {
-  // name like "shared.medical.json" or "shared.global.json"
+  // name like "shared.medical.json" or "shared.global.json" or "shared.image.json"
   return readJSON(path.join(__dirname, 'rules', name));
 }
 
@@ -124,7 +127,6 @@ function rewriteMedical(text, shared, rb) {
 
   let s = normWS(text || '');
 
-  // soften verbs (typo-tolerant)
   const tokens = s.split(/(\W+)/);
   for (let i=0;i<tokens.length;i++) {
     if (/^[a-z0-9]+$/i.test(tokens[i]) && fuzzyMatchAny(tokens[i], verbs, 1)) {
@@ -134,7 +136,6 @@ function rewriteMedical(text, shared, rb) {
   }
   s = tokens.join('');
 
-  // neutralize diseases
   const tokens2 = s.split(/(\W+)/);
   for (let i=0;i<tokens2.length;i++) {
     if (/^[a-z0-9]+$/i.test(tokens2[i]) && fuzzyMatchAny(tokens2[i], diseases, 1)) {
@@ -143,7 +144,6 @@ function rewriteMedical(text, shared, rb) {
   }
   s = tokens2.join('');
 
-  // tidy awkward constructions
   s = s.replace(/\b(help|helps)\s+supports\b/ig, 'supports')
        .replace(/\bsupports\s+supports\b/ig, 'supports')
        .replace(/\bmay\s+supports\b/ig, 'may support')
@@ -166,9 +166,8 @@ function primaryTextField(fields) {
   return null;
 }
 
-/* -------------------- Image helpers (Step 3) -------------------- */
+/* -------------------- Image helpers -------------------- */
 const IMG_EXT = /\.(png|jpe?g|gif|webp|bmp|tiff?|svg)(\?.*)?$/i;
-
 
 function extractImageUrls(fields) {
   const urls = new Set();
@@ -181,62 +180,79 @@ function extractImageUrls(fields) {
   ]);
 
   const URL_LIKE = /https?:\/\/[^\s"'()<>]+/ig;
+  const DATA_LIKE = /data:image\/[a-z0-9+.\-]+;base64,[a-z0-9+/=\s]+/ig;
 
   function collect(val, keyHint = '') {
     if (!val) return;
 
-    // Strings: add direct URLs and any URLs found inside the string
     if (typeof val === 'string') {
-      // If it looks like a direct URL, add it (even without extension for hinted keys)
-      const looksLikeUrl = /^https?:\/\//i.test(val);
+      const looksLikeUrl  = /^https?:\/\//i.test(val);
+      const looksLikeData = /^data:image\//i.test(val);
+
       if (looksLikeUrl) {
-        if (IMG_EXT.test(val) || KEY_HINTS.has(keyHint.toLowerCase())) {
-          urls.add(val);
-        }
+        if (IMG_EXT.test(val) || KEY_HINTS.has(keyHint.toLowerCase())) urls.add(val);
       }
-      // Also scan for any URLs embedded in the string
-      const matches = val.match(URL_LIKE) || [];
-      for (const u of matches) {
-        if (IMG_EXT.test(u)) urls.add(u);
-      }
+      if (looksLikeData) urls.add(val);
+
+      const urlMatches = val.match(URL_LIKE) || [];
+      for (const u of urlMatches) if (IMG_EXT.test(u)) urls.add(u);
+
+      const dataMatches = val.match(DATA_LIKE) || [];
+      for (const d of dataMatches) urls.add(d);
       return;
     }
 
-    // Arrays: recurse into each element
-    if (Array.isArray(val)) {
-      for (const item of val) collect(item, keyHint);
-      return;
-    }
+    if (Array.isArray(val)) { for (const item of val) collect(item, keyHint); return; }
 
-    // Objects: avoid cycles, then recurse into values
     if (typeof val === 'object') {
       if (seen.has(val)) return;
       seen.add(val);
 
-      // Common object shapes like { url, src, href }
       const candidate = val.url || val.src || val.href;
-      if (typeof candidate === 'string' && /^https?:\/\//i.test(candidate)) {
-        if (IMG_EXT.test(candidate) || KEY_HINTS.has(String(keyHint).toLowerCase())) {
-          urls.add(candidate);
+      if (typeof candidate === 'string') {
+        if (/^https?:\/\//i.test(candidate)) {
+          if (IMG_EXT.test(candidate) || KEY_HINTS.has(String(keyHint).toLowerCase())) urls.add(candidate);
         }
+        if (/^data:image\//i.test(candidate)) urls.add(candidate);
       }
 
-      for (const [k, v] of Object.entries(val)) {
-        collect(v, k);
-      }
+      for (const [k, v] of Object.entries(val)) collect(v, k);
       return;
     }
   }
 
   collect(fields, '');
-
   return Array.from(urls);
 }
 
+function parseDataUrl(dataUrl) {
+  // data:image/png;base64,AAAA...
+  const m = /^data:(image\/[a-z0-9+.\-]+);base64,([a-z0-9+/=\s]+)$/i.exec(dataUrl);
+  if (!m) return null;
+  const contentType = m[1].toLowerCase();
+  const buf = Buffer.from(m[2].replace(/\s+/g,''), 'base64');
+  return { contentType, buffer: buf, size: buf.length };
+}
+
 async function downloadImage(url) {
-  if (!_fetch) throw new Error('fetch unavailable');
+  // Supports http(s) and data:image/*
   const dir = path.join(__dirname, 'data', 'images', 'tmp');
   ensureDir(dir);
+
+  // data URL path (no IO, no network)
+  if (/^data:image\//i.test(url)) {
+    const parsed = parseDataUrl(url);
+    if (!parsed) throw new Error('bad_data_url');
+    return {
+      path: null,
+      size: parsed.size,
+      contentType: parsed.contentType,
+      buffer: parsed.buffer,
+      from: 'dataurl'
+    };
+  }
+
+  if (!_fetch) throw new Error('fetch unavailable');
   const ts = Date.now();
   const safeName = url.replace(/[^a-z0-9]+/ig, '_').slice(0,120);
   const fp = path.join(dir, `${ts}_${safeName}`);
@@ -248,7 +264,7 @@ async function downloadImage(url) {
     const buf = Buffer.from(await res.arrayBuffer());
     fs.writeFileSync(fp, buf);
     const ct = (res.headers && (res.headers.get?.('content-type') || res.headers['content-type'])) || '';
-    return { path: fp, size: buf.length, contentType: String(ct) };
+    return { path: fp, size: buf.length, contentType: String(ct).toLowerCase(), buffer: buf, from: 'http' };
   } finally {
     clearTimeout(timer);
   }
@@ -260,13 +276,16 @@ function cleanupFiles(fileInfos) {
   }
 }
 
-/* Lightweight heuristics only (no ML yet) */
-function detectImageIssues(url, fileInfo) {
-  const issues = [];
-  const pathish = `${url} ${fileInfo?.path || ''}`.toLowerCase();
+async function awaitMaybeFileType(buf) {
+  try { return await fileTypeFromBuffer(buf); } catch { return null; }
+}
 
-  // Simple boundary-aware search (no lookbehind). We search for the token and
-  // confirm the char before/after (if any) aren't [a-z0-9].
+/* Image checks: URL tokens + Layers 2–4 (sniff, dimensions, simple heuristics) */
+async function detectImageIssues(url, fileInfo, { urlOnly = false } = {}) {
+  const issues = [];
+  const pathish = `${url || ''} ${fileInfo?.path || ''}`.toLowerCase();
+
+  // Boundary-ish simple search
   function hasToken(token) {
     let idx = -1;
     while ((idx = pathish.indexOf(token, idx + 1)) !== -1) {
@@ -278,35 +297,84 @@ function detectImageIssues(url, fileInfo) {
     }
     return false;
   }
-  // RegExp helper for patterns with special chars (like 'super-copy', 'scan_me', '1-1', '1:1')
   function hasPattern(re) { return re.test(pathish); }
 
-  // NSFW / adult hints (high)
-  if (hasToken('nsfw') || hasToken('onlyfans') || hasToken('porn') || hasToken('xxx') ||
-      hasToken('explicit') || hasToken('adult')) {
+  // URL token heuristics (Layer 1)
+  if (hasToken('nsfw') || hasToken('onlyfans') || hasToken('porn') || hasToken('xxx') || hasToken('explicit') || hasToken('adult')) {
     issues.push({ severity: 'high', label: 'NSFW / Adult content (image hint)' });
   }
-
-  // Violence / gore (high)
-  if (hasToken('gore') || hasToken('blood') || hasToken('beheading') ||
-      hasToken('decap') || hasToken('dismember')) {
+  if (hasToken('gore') || hasToken('blood') || hasToken('beheading') || hasToken('decap') || hasToken('dismember')) {
     issues.push({ severity: 'high', label: 'Graphic violence (image hint)' });
   }
-
-  // Counterfeit hint (medium) — support 'replica', 'super-copy/super_copy', and '1:1' or '1-1'
   if (hasToken('replica') || hasPattern(/super[-_]?copy/i) || hasPattern(/1[:\-_]1/i)) {
-    issues.push({ severity: 'medium', label: 'Counterfeit / Replica (image hint)' });
+    issues.push({ severity: 'high', label: 'Counterfeit / Replica (image hint)' });
   }
-
-  // QR/code-scan bait (medium)
   if (hasToken('qrcode') || hasPattern(/\bscan[-_]?me\b/i) || hasToken('qr')) {
     issues.push({ severity: 'medium', label: 'QR / Scan code solicitation (image hint)' });
   }
 
-  // Suspicious file type masquerading (high)
-  const ct = (fileInfo?.contentType || '').toLowerCase();
-  if (ct && !/^image\//.test(ct) && IMG_EXT.test(url)) {
-    issues.push({ severity: 'high', label: 'Content-Type mismatch on image download' });
+  // Layers 2–4 only if we actually have bytes
+  if (fileInfo?.buffer && fileInfo.buffer.length > 0) {
+    const sharedImg = loadShared('shared.image.json') || {};
+    const minW = Number(sharedImg.min_width || 300);
+    const minH = Number(sharedImg.min_height || 300);
+    const minAR = Number(sharedImg.min_aspect || 0.2);
+    const maxAR = Number(sharedImg.max_aspect || 5.0);
+
+    // Layer 2: MIME sniffing vs declared content-type and URL extension
+    try {
+      const ft = await awaitMaybeFileType(fileInfo.buffer);
+      if (ft) {
+        const sniffMime = String(ft.mime || '').toLowerCase();
+        const declared = String(fileInfo.contentType || '').toLowerCase();
+        if (declared && sniffMime && !declared.startsWith(sniffMime)) {
+          issues.push({ severity: 'medium', label: `File signature (${sniffMime}) differs from declared (${declared})` });
+        }
+        // extension mismatch
+        const urlExtMatch = (url || '').match(/\.(\w+)(?:\?.*)?$/i);
+        if (urlExtMatch && ft.ext) {
+          const ext = urlExtMatch[1].toLowerCase();
+          const extMap = { jpg:'jpeg', jpeg:'jpeg', png:'png', webp:'webp', gif:'gif', bmp:'bmp', tiff:'tiff', tif:'tiff', svg:'svg' };
+          const normUrl = extMap[ext] || ext;
+          const normSniff = extMap[ft.ext] || ft.ext;
+          if (normUrl && normSniff && normUrl !== normSniff) {
+            issues.push({ severity: 'medium', label: `Extension (${ext}) doesn’t match file type (${ft.ext})` });
+          }
+        }
+      }
+    } catch (e) {
+      // ignore sniff errors
+    }
+
+    // Layer 3: dimensions & aspect ratio
+    try {
+      const dim = imageSize(fileInfo.buffer);
+      if (dim && dim.width && dim.height) {
+        const { width, height } = dim;
+        const ar = width / height;
+
+        if (width < minW || height < minH) {
+          issues.push({ severity: 'medium', label: `Image too small (${width}x${height}, min ${minW}x${minH})` });
+        }
+        if (ar < minAR || ar > maxAR) {
+          issues.push({ severity: 'medium', label: `Extreme aspect ratio (${ar.toFixed(2)})` });
+        }
+      }
+    } catch (e) {
+      // ignore dimension errors
+    }
+
+    // Layer 4: simple “oddity” heuristics
+    try {
+      if (fileInfo.size > 0 && fileInfo.size < 1024) {
+        issues.push({ severity: 'medium', label: 'Very small image payload (<1KB)' });
+      }
+    } catch {}
+  } else if (!urlOnly) {
+    // No bytes (and not URL-only pass) but looks like an image URL -> note
+    if (url && IMG_EXT.test(url)) {
+      issues.push({ severity: 'medium', label: 'Image fetch failed (non-blocking)' });
+    }
   }
 
   return issues;
@@ -320,21 +388,18 @@ async function scanImagesFromFields(fields, { enable = true } = {}) {
   const downloaded = [];
   const found = [];
 
-  // DEBUG (safe): show what we found so we can diagnose if needed
-  console.log('IMG_SCAN urls:', urls);
-
   for (const url of urls) {
-    // Always run URL-based heuristics first (no network needed)
+    // URL token checks first (do NOT add fetch-failed here)
     try {
-      const urlOnlyHits = detectImageIssues(url, null);
+      const urlOnlyHits = await detectImageIssues(url, null, { urlOnly: true });
       urlOnlyHits.forEach(h => found.push({ url, severity: h.severity, label: h.label }));
     } catch {}
 
-    // Then attempt to download for extra checks
+    // Try to get bytes (http OR data URL)
     try {
       const info = await downloadImage(url);
       downloaded.push(info);
-      const hits = detectImageIssues(url, info);
+      const hits = await detectImageIssues(url, info);
       hits.forEach(h => found.push({ url, severity: h.severity, label: h.label }));
     } catch (e) {
       if (IMG_EXT.test(url)) {
@@ -343,8 +408,8 @@ async function scanImagesFromFields(fields, { enable = true } = {}) {
     }
   }
 
-  // Cleanup temp files
-  cleanupFiles(downloaded);
+  // Clean up temp http files
+  cleanupFiles(downloaded.filter(f => f && f.from === 'http'));
 
   return { issues: found, files: downloaded };
 }
@@ -352,7 +417,7 @@ async function scanImagesFromFields(fields, { enable = true } = {}) {
 /* -------------------- main text rule check -------------------- */
 function checkWithRulebook(platform, fields, rb) {
   const issues = [];
-  const fixes = [];
+  let fixes = [];
   let high = false;
 
   const title = fields.title || '';
@@ -362,7 +427,6 @@ function checkWithRulebook(platform, fields, rb) {
   const tags  = fields.tags || '';
   const hashtags = fields.hashtags || '';
 
-  // ---- limits ----
   if (rb?.limits?.title_max && title && title.length > rb.limits.title_max) {
     issues.push(`Title exceeds ${rb.limits.title_max} characters.`);
     fixes.push({ field:'title', suggestion: title.slice(0, rb.limits.title_max) });
@@ -390,21 +454,16 @@ function checkWithRulebook(platform, fields, rb) {
     }
   }
 
-  // ---- link checks ----
   const platformsWithLinks = new Set(['pinterest','youtube','tiktok','amazon','instagram','facebook','x','linkedin','reddit','snapchat','ebay']);
   if (platformsWithLinks.has(platform) && link) {
-    if (!/^https?:\/\//i.test(link)) {
-      issues.push('Destination URL should start with http(s)://');
-    }
+    if (!/^https?:\/\//i.test(link)) issues.push('Destination URL should start with http(s)://');
   }
 
-  // ---- category scanning ----
   const searchable = buildSearchText(fields);
   const mainFieldKey = primaryTextField(fields) || 'description';
   const mainText = fields[mainFieldKey] || '';
 
   (rb?.categories || []).forEach(cat => {
-    // medical shared list (proximity logic)
     if (cat.patterns_ref && /shared\.medical\.json/i.test(cat.patterns_ref)) {
       const sharedMed = loadShared('shared.medical.json');
       const verbs    = (sharedMed?.claim_verbs || []).concat(['fdaapproved','fdacleared']);
@@ -414,13 +473,11 @@ function checkWithRulebook(platform, fields, rb) {
         issues.push(cat.label || 'Medical / Health Claims detected.');
         const suggestion = rewriteMedical(mainText, sharedMed, rb);
         if (suggestion && suggestion !== mainText) fixes.push({ field: mainFieldKey, suggestion });
-        // Debug log
         console.log('RULE MATCHED:', cat.id, '=>', 'proximity(verbs~diseases)');
       }
       return;
     }
 
-    // resolve patterns_ref to literal-safe strings
     let listPatterns = [];
     if (cat.patterns_ref) {
       listPatterns = resolvePatternsRef(cat.patterns_ref)
@@ -428,10 +485,7 @@ function checkWithRulebook(platform, fields, rb) {
         .filter(Boolean);
     }
 
-    // normalize inline patterns: support strings or objects {pattern, flags}
     const inline = (cat.patterns || []).filter(Boolean);
-
-    // test each pattern individually so flags are honored and we can log precisely
     const all = [
       ...listPatterns.map(s => ({ pattern: s, flags: 'i', _source: 'ref' })),
       ...inline.map(p => {
@@ -448,9 +502,7 @@ function checkWithRulebook(platform, fields, rb) {
         const re = new RegExp(entry.pattern, entry.flags || 'i');
         if (re.test(searchable)) {
           if (cat.severity === 'high') high = true;
-          // --- DEBUG: log exact category + pattern
           console.log('RULE MATCHED:', cat.id, '=>', `/${entry.pattern}/${entry.flags || 'i'}`);
-          // push issue once per category label (avoid duplicates)
           if (!issues.some(x => x === (cat.label || 'Policy issue detected.'))) {
             issues.push(cat.label || 'Policy issue detected.');
           }
@@ -467,7 +519,6 @@ function checkWithRulebook(platform, fields, rb) {
       }
     }
 
-    // run structured checks if any
     if (Array.isArray(cat.checks)) {
       cat.checks.forEach(chk => {
         if (chk === 'url_scheme_http_https' && link) {
@@ -488,10 +539,8 @@ function checkWithRulebook(platform, fields, rb) {
 function runChecks({ platform, fields }) {
   const p = String(platform||'').toLowerCase();
   const rb = loadRulebook(p);
-  if (!rb) {
-    return { issues:[`No rulebook found for ${p}`], fixes:[], high:true };
-  }
-  // Merge global categories (applies to all platforms)
+  if (!rb) return { issues:[`No rulebook found for ${p}`], fixes:[], high:true };
+
   const globalRules = loadShared('shared.global.json');
   if (globalRules && Array.isArray(globalRules.categories)) {
     rb.categories = [...(rb.categories || []), ...globalRules.categories];
@@ -563,13 +612,12 @@ app.post('/api/check', async (req,res)=>{
     let { issues, fixes, high } = runChecks({ platform, fields });
     let level = issues.length===0 ? 'green' : (high ? 'red' : 'yellow');
 
-    // 2) Image checks (Step 3)
+    // 2) Image checks
     let imageFindings = [];
     if (scanImages) {
       try {
         const imageScan = await scanImagesFromFields(fields, { enable: true });
         imageFindings = imageScan.issues || [];
-        // Merge image issues into overall
         if (imageFindings.length > 0) {
           for (const hit of imageFindings) {
             issues.push(`${hit.label}${hit.url ? ` [${hit.url}]` : ''}`);
@@ -578,12 +626,11 @@ app.post('/api/check', async (req,res)=>{
           level = issues.length===0 ? 'green' : (high ? 'red' : 'yellow');
         }
       } catch (e) {
-        // Image scanner error should not block text checks
         console.warn('Image scan error:', e && e.message ? e.message : String(e));
       }
     }
 
-    // 3) re-check suggestion (level change only in strict mode)
+    // 3) Re-check suggestion (strict mode can downgrade risk)
     const mainField = primaryTextField(fields);
     const suggested = fixes.find(f => mainField && f.field === mainField);
     if (suggested && suggested.suggestion) {
@@ -598,7 +645,7 @@ app.post('/api/check', async (req,res)=>{
       }
     }
 
-    // 4) local LLM augmentation (borderline/high)
+    // 4) Optional local model assist
     let model = null;
     if (level !== 'green') {
       try {
@@ -614,9 +661,7 @@ app.post('/api/check', async (req,res)=>{
             const reLevel = recheck.issues.length===0 ? 'green' : (recheck.high ? 'red' : 'yellow');
 
             let finalRewrite = parsed.rewrite;
-            if (strictMode && reLevel !== 'green') {
-              finalRewrite = degradeToNeutral(parsed.rewrite);
-            }
+            if (strictMode && reLevel !== 'green') finalRewrite = degradeToNeutral(parsed.rewrite);
 
             model = { name: 'Llama 3.1 (local)', label: parsed.label || 'unknown', rewrite: finalRewrite };
 

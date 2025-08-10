@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-08-10T15:05:52.539Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "QR / Scan code solicitation (image hint) [https://assets.example.com/scan_me_qr.png]",
+    "Image HEAD error (fetch failed) [https://assets.example.com/scan_me_qr.png]",
+    "Image fetch failed (non-blocking) [https://assets.example.com/scan_me_qr.png]",
+    "Hybrid image risk: YELLOW [https://assets.example.com/scan_me_qr.png]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "Scan to win https://assets.example.com/scan_me_qr.png"
+  },
+  "imageFindings": [
+    {
+      "url": "https://assets.example.com/scan_me_qr.png",
+      "severity": "medium",
+      "label": "QR / Scan code solicitation (image hint)",
+      "score": 15
+    },
+    {
+      "url": "https://assets.example.com/scan_me_qr.png",
+      "severity": "medium",
+      "label": "Image HEAD error (fetch failed)",
+      "score": 10
+    },
+    {
+      "url": "https://assets.example.com/scan_me_qr.png",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)",
+      "score": 10
+    },
+    {
+      "url": "https://assets.example.com/scan_me_qr.png",
+      "severity": "medium",
+      "label": "Hybrid image risk: YELLOW",
+      "score": 0
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

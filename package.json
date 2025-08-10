@@ -13,6 +13,7 @@
     "test:once": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/run_golden.js\"",
     "test:smoke": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_global.js\"",
     "test:images": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_images.js\"",
+    "test:images:deep": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_images_deep.js\"",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -22,6 +23,11 @@
     "wait-on": "^7.2.0"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "axios": "^1.11.0",
+    "express": "^5.1.0",
+    "file-type": "^18.7.0",
+    "form-data": "^4.0.4",
+    "image-size": "^1.2.1",
+    "sharp": "^0.33.5"
   }
 }

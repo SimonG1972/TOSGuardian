@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "min_width": 300,
+  "min_height": 300,
+  "min_aspect": 0.2,
+  "max_aspect": 5.0
+}

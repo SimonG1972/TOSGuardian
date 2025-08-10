@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-10T15:06:41.946Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "New handmade mug drop"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

@@ -1,0 +1,40 @@
+{
+  "timestamp": "2025-08-10T15:05:52.556Z",
+  "platform": "tiktok",
+  "level": "yellow",
+  "issues": [
+    "Image HEAD error (fetch failed) [https://images.example.com/product_clean.jpg]",
+    "Image fetch failed (non-blocking) [https://images.example.com/product_clean.jpg]",
+    "Hybrid image risk: YELLOW [https://images.example.com/product_clean.jpg]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Product photo https://images.example.com/product_clean.jpg"
+  },
+  "imageFindings": [
+    {
+      "url": "https://images.example.com/product_clean.jpg",
+      "severity": "medium",
+      "label": "Image HEAD error (fetch failed)",
+      "score": 10
+    },
+    {
+      "url": "https://images.example.com/product_clean.jpg",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)",
+      "score": 10
+    },
+    {
+      "url": "https://images.example.com/product_clean.jpg",
+      "severity": "medium",
+      "label": "Hybrid image risk: YELLOW",
+      "score": 0
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}
