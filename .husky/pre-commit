@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname "$0")/_/husky.sh"
 
-# Run golden tests once; block commit on failure
-npm run --silent test:once
-
+echo "🔍 Pre-commit: quick checks…"
+npm run lint --if-present

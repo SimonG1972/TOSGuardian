@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🧪 Pre-push: running smoke + deep image tests…"
+npm run test:ci || {
+  echo "❌ Tests failed — push aborted."
+  exit 1
+}

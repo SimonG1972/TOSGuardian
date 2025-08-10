@@ -14,7 +14,8 @@
     "test:smoke": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_global.js\"",
     "test:images": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_images.js\"",
     "test:images:deep": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_images_deep.js\"",
-    "prepare": "husky"
+    "test:ci": "npm run test:images && npm run test:images:deep",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "concurrently": "^9.0.0",
