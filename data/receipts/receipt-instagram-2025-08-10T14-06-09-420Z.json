@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T14:06:09.419Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Rapid weight-loss / medical claims"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Burn fat fast with this smoothie"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-10T14:47:37.331Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "NSFW / Adult content (image hint) [https://cdn.example.com/nsfw_shoot_01.png]",
+    "Image fetch failed (non-blocking) [https://cdn.example.com/nsfw_shoot_01.png]"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "New set https://cdn.example.com/nsfw_shoot_01.png"
+  },
+  "imageFindings": [
+    {
+      "url": "https://cdn.example.com/nsfw_shoot_01.png",
+      "severity": "high",
+      "label": "NSFW / Adult content (image hint)"
+    },
+    {
+      "url": "https://cdn.example.com/nsfw_shoot_01.png",
+      "severity": "medium",
+      "label": "Image fetch failed (non-blocking)"
+    }
+  ],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-10T14:11:16.779Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Destination URL should start with http(s)://",
+    "Destination Link Quality"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "caption": "hello",
+    "hashtags": "",
+    "link": "www.example.com/shop"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

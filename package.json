@@ -12,6 +12,7 @@
     "dev": "concurrently -k -n SERVER,TEST \"npm:serve\" \"wait-on http-get://localhost:3000 && npm run test:watch\"",
     "test:once": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/run_golden.js\"",
     "test:smoke": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_global.js\"",
+    "test:images": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_images.js\"",
     "prepare": "husky"
   },
   "devDependencies": {

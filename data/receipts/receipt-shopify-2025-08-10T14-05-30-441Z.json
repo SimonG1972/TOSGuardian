@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-08-10T14:05:30.441Z",
+  "platform": "shopify",
+  "level": "yellow",
+  "issues": [
+    "Absolute / Guaranteed Claims",
+    "Exaggerated / Misleading Claims"
+  ],
+  "fixesCount": 3,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "100% guaranteed results"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

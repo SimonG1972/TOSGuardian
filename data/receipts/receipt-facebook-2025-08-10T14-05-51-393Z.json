@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T14:05:51.391Z",
+  "platform": "facebook",
+  "level": "red",
+  "issues": [
+    "Impersonation / Fake Support"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Your account will be suspended, appeal now"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

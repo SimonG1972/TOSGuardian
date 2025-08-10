@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-10T14:05:30.594Z",
+  "platform": "amazon",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Relaxing lo-fi beats"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

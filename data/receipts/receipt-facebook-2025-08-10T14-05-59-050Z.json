@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-10T14:05:59.050Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Cozy fall decor ideas"
+  },
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

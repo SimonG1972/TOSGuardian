@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-08-10T14:32:20.278Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {},
+  "imageFindings": [],
+  "model": null,
+  "strictMode": false
+}

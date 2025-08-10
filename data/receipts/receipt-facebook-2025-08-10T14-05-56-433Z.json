@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T14:05:56.432Z",
+  "platform": "facebook",
+  "level": "yellow",
+  "issues": [
+    "Crypto / Forex Hype"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Pump signals available"
+  },
+  "imageFindings": [],
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}
