@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:41:04.286Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Fake Engagement / Bot-Bait"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Like & share to boost this post"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

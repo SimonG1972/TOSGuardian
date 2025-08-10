@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:44:06.988Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Before/After Transformation Claims"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Before & after results in 7 days"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

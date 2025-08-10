@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-10T13:43:31.694Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Scam / Off-platform Signals",
+    "Off-platform Sales / Circumvention"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "DM me for price"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

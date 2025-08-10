@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:44:27.117Z",
+  "platform": "reddit",
+  "level": "red",
+  "issues": [
+    "Malware / Suspicious Files"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Download cheat aimbot.exe now"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

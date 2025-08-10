@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:35:21.440Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Phishing Language"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Reset your password using this link"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

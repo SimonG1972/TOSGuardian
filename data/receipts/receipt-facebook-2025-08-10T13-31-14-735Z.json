@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-10T13:31:14.734Z",
+  "platform": "facebook",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "DM us to claim your prize"
+  },
+  "model": null,
+  "strictMode": false
+}

@@ -10,10 +10,13 @@
     "test": "node tests/run_golden.js",
     "test:watch": "nodemon --watch rules --watch tests --watch server.js --ext js,json --exec \"node tests/run_golden.js\"",
     "dev": "concurrently -k -n SERVER,TEST \"npm:serve\" \"wait-on http-get://localhost:3000 && npm run test:watch\"",
-    "test:once": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/run_golden.js\""
+    "test:once": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/run_golden.js\"",
+    "test:smoke": "concurrently -k -s first -n SERVER,TEST \"node server.js\" \"wait-on http-get://localhost:3000 && node tests/smoke_global.js\"",
+    "prepare": "husky"
   },
   "devDependencies": {
     "concurrently": "^9.0.0",
+    "husky": "^9.1.7",
     "nodemon": "^3.0.0",
     "wait-on": "^7.2.0"
   },

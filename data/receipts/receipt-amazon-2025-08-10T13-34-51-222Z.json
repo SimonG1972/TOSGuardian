@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:34:51.221Z",
+  "platform": "amazon",
+  "level": "yellow",
+  "issues": [
+    "Deceptive Scarcity / Urgency"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Limited time offer ends tonight"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

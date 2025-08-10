@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:34:23.414Z",
+  "platform": "facebook",
+  "level": "yellow",
+  "issues": [
+    "Off-platform Sales / Circumvention"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Pay outside the platform"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

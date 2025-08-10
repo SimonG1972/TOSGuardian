@@ -1,0 +1,17 @@
+# Severity Mapping Debug Notes
+
+Expected RED but got YELLOW cases:
+- Scam / Off-platform Signals
+- Off-platform Sales / Circumvention
+- Off-platform Payment/Messaging Links
+- Earnings / Get-Rich-Quick Claims
+- Giveaway / Prize Scams
+- Before/After Transformation Claims
+- Impersonation / Fake Support
+- Malware / Suspicious Files
+- Clickbait / Spammy Language + Phishing Language
+- Rapid weight-loss / medical claims
+- Medical / Health Claims
+- Counterfeit / Intellectual Property Violations
+
+Action: Check rules config (rules/*.json) and ensure these have severity: "red" not "yellow".

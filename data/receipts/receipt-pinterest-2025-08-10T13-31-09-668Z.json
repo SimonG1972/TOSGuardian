@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-10T13:31:09.667Z",
+  "platform": "pinterest",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.1",
+  "fieldsSnapshot": {
+    "description": "Our catalog: https://example.com/shop"
+  },
+  "model": null,
+  "strictMode": false
+}

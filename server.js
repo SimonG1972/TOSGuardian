@@ -217,7 +217,7 @@ function checkWithRulebook(platform, fields, rb) {
   const mainText = fields[mainFieldKey] || '';
 
   (rb?.categories || []).forEach(cat => {
-    // medical shared list
+    // medical shared list (proximity logic)
     if (cat.patterns_ref && /shared\.medical\.json/i.test(cat.patterns_ref)) {
       const sharedMed = loadShared('shared.medical.json');
       const verbs    = (sharedMed?.claim_verbs || []).concat(['fdaapproved','fdacleared']);
@@ -227,39 +227,72 @@ function checkWithRulebook(platform, fields, rb) {
         issues.push(cat.label || 'Medical / Health Claims detected.');
         const suggestion = rewriteMedical(mainText, sharedMed, rb);
         if (suggestion && suggestion !== mainText) fixes.push({ field: mainFieldKey, suggestion });
+        // --- DEBUG: log proximity match
+        console.log('RULE MATCHED:', cat.id, '=>', 'proximity(verbs~diseases)');
       }
       return;
     }
 
-    // resolve patterns
+    // resolve patterns_ref to literal-safe strings
     let listPatterns = [];
     if (cat.patterns_ref) {
       listPatterns = resolvePatternsRef(cat.patterns_ref)
         .map(p => typeof p === 'string' ? escapeRegex(p) : '')
         .filter(Boolean);
     }
-    const inlinePatterns = (cat.patterns || []).filter(Boolean);
-    const unionSrcs = [...listPatterns, ...inlinePatterns];
 
-    if (unionSrcs.length > 0) {
-      const re = new RegExp(unionSrcs.join('|'), 'i');
-      if (re.test(searchable)) {
-        if (cat.severity === 'high') high = true;
-        issues.push(cat.label || 'Policy issue detected.');
-        if (cat.rewrite?.find) {
-          const r = new RegExp(cat.rewrite.find, 'ig');
-          const suggestion = (mainText || '').replace(r, cat.rewrite.replace ?? 'neutral');
-          if (suggestion && suggestion !== mainText) fixes.push({ field: mainFieldKey, suggestion });
+    // normalize inline patterns: support strings or objects {pattern, flags}
+    const inline = (cat.patterns || []).filter(Boolean);
+
+    // test each pattern individually so flags are honored and we can log precisely
+    const all = [
+      ...listPatterns.map(s => ({ pattern: s, flags: 'i', _source: 'ref' })),
+      ...inline.map(p => {
+        if (typeof p === 'string') return { pattern: p, flags: 'i', _source: 'inline:string' };
+        if (p && typeof p === 'object' && typeof p.pattern === 'string') {
+          return { pattern: p.pattern, flags: p.flags || 'i', _source: 'inline:object' };
         }
+        return null;
+      }).filter(Boolean)
+    ];
+
+    let matchedThisCategory = false;
+
+    for (const entry of all) {
+      try {
+        const re = new RegExp(entry.pattern, entry.flags || 'i');
+        if (re.test(searchable)) {
+          matchedThisCategory = true;
+          if (cat.severity === 'high') high = true;
+          // --- DEBUG: log exact category + pattern
+          console.log('RULE MATCHED:', cat.id, '=>', `/${entry.pattern}/${entry.flags || 'i'}`);
+          // push issue once per category label (avoid duplicates)
+          if (!issues.some(x => x === (cat.label || 'Policy issue detected.'))) {
+            issues.push(cat.label || 'Policy issue detected.');
+          }
+          if (cat.rewrite?.find) {
+            const r = new RegExp(cat.rewrite.find, 'ig');
+            const suggestion = (mainText || '').replace(r, cat.rewrite.replace ?? 'neutral');
+            if (suggestion && suggestion !== mainText) {
+              fixes.push({ field: mainFieldKey, suggestion });
+            }
+          }
+          // we continue scanning in case multiple patterns matter; remove `break` on purpose
+        }
+      } catch (e) {
+        // Bad regex shouldn't crash the run; log once
+        console.warn('Bad regex in category', cat.id, 'pattern:', entry && entry.pattern, 'flags:', entry && entry.flags, e.message);
       }
     }
 
+    // run structured checks if any
     if (Array.isArray(cat.checks)) {
       cat.checks.forEach(chk => {
         if (chk === 'url_scheme_http_https' && link) {
           if (!/^https?:\/\//i.test(link)) {
             if (cat.severity === 'high') high = true;
             issues.push(cat.label || 'Link policy issue.');
+            console.log('RULE MATCHED:', cat.id, '=>', 'check:url_scheme_http_https');
           }
         }
       });

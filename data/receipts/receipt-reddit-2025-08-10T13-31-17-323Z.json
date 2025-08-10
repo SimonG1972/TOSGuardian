@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-10T13:31:17.322Z",
+  "platform": "reddit",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Free hack wallhack"
+  },
+  "model": null,
+  "strictMode": false
+}

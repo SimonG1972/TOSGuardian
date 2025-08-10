@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:34:38.589Z",
+  "platform": "facebook",
+  "level": "red",
+  "issues": [
+    "Earnings / Get-Rich-Quick Claims"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Guaranteed profits with zero experience"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

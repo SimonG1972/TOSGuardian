@@ -7,11 +7,11 @@
       "label": "Off-platform Sales / Circumvention",
       "severity": "medium",
       "patterns": [
-        "dm (me|us) for (price|payment|order)",
-        "telegram\\s*@?\\w+",
-        "whatsapp\\s*\\+?\\d+",
-        "cash app|venmo|zelle handle",
-        "pay outside (the )?platform"
+        { "pattern": "dm\\s+(?:me|us)\\s+for\\s+(?:price|payment|order)", "flags": "i" },
+        { "pattern": "telegram\\s*@?\\w+", "flags": "i" },
+        { "pattern": "whatsapp\\s*\\+?\\d+", "flags": "i" },
+        { "pattern": "cash\\s+app|venmo|zelle\\s+handle", "flags": "i" },
+        { "pattern": "pay\\s+outside\\s+(?:the\\s+)?platform", "flags": "i" }
       ],
       "guidance": "Avoid steering users to off-platform payments or private channels."
     },
@@ -20,7 +20,7 @@
       "label": "Off-platform Payment/Messaging Links",
       "severity": "high",
       "patterns": [
-        "https?:\\/\\/(?:t\\.me|telegram\\.org|wa\\.me|whatsapp\\.com|cash\\.app|venmo\\.com|zellepay\\.com|paypal\\.me|discord\\.gg)\\/\\S+"
+        { "pattern": "https?:\\/\\/(?:t\\.me|telegram\\.org|wa\\.me|whatsapp\\.com|cash\\.app|venmo\\.com|zellepay\\.com|paypal\\.me|discord\\.gg)\\/\\S+", "flags": "i" }
       ],
       "guidance": "Block links that direct users to off-platform payment or messaging services."
     },
@@ -29,10 +29,10 @@
       "label": "Exaggerated / Misleading Claims",
       "severity": "medium",
       "patterns": [
-        "guaranteed results?",
-        "instant results?",
-        "no risk",
-        "100%\\s*(guarantee|guaranteed)"
+        { "pattern": "guaranteed\\s+results?", "flags": "i" },
+        { "pattern": "instant\\s+results?", "flags": "i" },
+        { "pattern": "no\\s+risk", "flags": "i" },
+        { "pattern": "100%\\s*(?:guarantee|guaranteed)", "flags": "i" }
       ],
       "rewrite": {
         "find": "no risk|100%\\s*(guarantee|guaranteed)|instant results?|guaranteed results?",
@@ -44,13 +44,13 @@
       "label": "Earnings / Get-Rich-Quick Claims",
       "severity": "high",
       "patterns": [
-        "make\\s*\\$?\\s*\\d{2,}[kK]?\\s*(?:a|per)\\s*(?:day|week|month)",
-        "\\$\\s*\\d{2,}[kK]?\\s*(?:a|per)\\s*(?:day|week|month)",
-        "earn\\s*\\$?\\s*\\d{2,}[kK]?\\s*(?:fast|quick(?:ly)?)",
-        "financial\\s+freedom\\s+in\\s+\\d+\\s+(?:days?|weeks?)",
-        "passive\\s+income\\s+on\\s+autopilot",
-        "guaranteed\\s+profits?",
-        "no\\s+experience\\s+required\\s+earn\\s*\\$?\\s*\\d+"
+        { "pattern": "make\\s*\\$?\\s*\\d{2,}[kK]?\\s*(?:a|per)\\s*(?:day|week|month)", "flags": "i" },
+        { "pattern": "\\$\\s*\\d{2,}[kK]?\\s*(?:a|per)\\s*(?:day|week|month)", "flags": "i" },
+        { "pattern": "earn\\s*\\$?\\s*\\d{2,}[kK]?\\s*(?:fast|quick(?:ly)?)", "flags": "i" },
+        { "pattern": "financial\\s+freedom\\s+in\\s+\\d+\\s+(?:days?|weeks?)", "flags": "i" },
+        { "pattern": "passive\\s+income\\s+on\\s+autopilot", "flags": "i" },
+        { "pattern": "guaranteed\\s+profits?", "flags": "i" },
+        { "pattern": "no\\s+experience\\s+required\\s+earn\\s*\\$?\\s*\\d+", "flags": "i" }
       ],
       "guidance": "Flag unrealistic, time-bound, or guaranteed earning/ROI claims."
     },
@@ -61,7 +61,7 @@
       "patterns": [
         { "pattern": "tag\\s+\\d+\\s+friends?\\s+to\\s+win", "flags": "i" },
         { "pattern": "tag\\s+friends?\\s+to\\s+win", "flags": "i" },
-        { "pattern": "dm\\s+(?:us|me)\\s+to\\s+claim\\s+(?:prize|giveaway|reward)", "flags": "i" },
+        { "pattern": "dm\\s+(?:us|me)\\s+to\\s+claim\\s+(?:your\\s+)?(?:prize|giveaway|reward)", "flags": "i" },
         { "pattern": "congrats?[,!\\s]*(?:to\\s+the\\s+)?winners?", "flags": "i" },
         { "pattern": "you(?:'|’)?ve\\s+won", "flags": "i" },
         { "pattern": "gift\\s+card\\s+giveaway", "flags": "i" },
@@ -70,11 +70,113 @@
       "guidance": "Block common giveaway/prize scam patterns that solicit engagement or DMs to claim rewards."
     },
     {
+      "id": "global-fake-engagement-bait",
+      "label": "Fake Engagement / Bot-Bait",
+      "severity": "medium",
+      "patterns": [
+        { "pattern": "\\blike\\s*(?:&|and)\\s*share\\b", "flags": "i" },
+        { "pattern": "\\bfollow\\s*(?:&|and)\\s*share\\b", "flags": "i" },
+        { "pattern": "\\bcomment\\s+['\"]?done['\"]?\\b", "flags": "i" },
+        { "pattern": "\\bfollow\\s+for\\s+follow\\b", "flags": "i" },
+        { "pattern": "\\bf4f\\b", "flags": "i" },
+        { "pattern": "\\bboost\\s+this\\s+post\\b", "flags": "i" }
+      ],
+      "guidance": "Down-rank engagement-bait patterns that game algorithms."
+    },
+    {
+      "id": "global-scarcity-urgency",
+      "label": "Deceptive Scarcity / Urgency",
+      "severity": "medium",
+      "patterns": [
+        { "pattern": "\\bonly\\s+\\d+\\s+(?:left|remaining|in\\s+stock)\\b", "flags": "i" },
+        { "pattern": "\\boffer\\s+ends\\s+in\\s+\\d+\\s+(?:minutes?|hours?|days?)\\b", "flags": "i" },
+        { "pattern": "\\bsale\\s+ends\\s+(?:today|tonight|tomorrow|in\\s+\\d+\\s+(?:days?|hours?))\\b", "flags": "i" },
+        { "pattern": "\\blimited\\s+time\\s+(?:offer|deal)\\b", "flags": "i" },
+        { "pattern": "\\blast\\s+chance\\b", "flags": "i" },
+        { "pattern": "\\bwhile\\s+supplies\\s+last\\b", "flags": "i" },
+        { "pattern": "\\bact\\s+now\\b", "flags": "i" }
+      ],
+      "guidance": "Flag manipulative urgency/shortage phrasing that pressures immediate action."
+    },
+    {
+      "id": "global-before-after-claims",
+      "label": "Before/After Transformation Claims",
+      "severity": "high",
+      "patterns": [
+        { "pattern": "\\bbefore\\s*(?:&|and)\\s*after\\b", "flags": "i" },
+        { "pattern": "\\btransformation?\\s+in\\s+\\d+\\s+(?:days?|weeks?)\\b", "flags": "i" },
+        { "pattern": "\\bvisible\\s+results?\\s+in\\s+\\d+\\s+(?:days?|weeks?)\\b", "flags": "i" },
+        { "pattern": "\\bafter\\s+\\d+\\s+(?:days?|weeks?)\\b", "flags": "i" }
+      ],
+      "guidance": "High-risk cosmetic/body transformation claims and before/after framing."
+    },
+    {
+      "id": "global-impersonation-support",
+      "label": "Impersonation / Fake Support",
+      "severity": "high",
+      "patterns": [
+        { "pattern": "\\bofficial\\s+support\\b", "flags": "i" },
+        { "pattern": "\\bverify\\s+your\\s+account\\b", "flags": "i" },
+        { "pattern": "\\byour\\s+account\\s+(?:will\\s+be\\s+)?(?:suspended|disabled)\\b", "flags": "i" },
+        { "pattern": "\\bappeal\\s+(?:here|now)\\b", "flags": "i" },
+        { "pattern": "\\bcontact\\s+(?:support|agent)\\s+(?:via\\s+)?(?:whatsapp|telegram)\\b", "flags": "i" }
+      ],
+      "guidance": "Language typical of fake support impersonation and account-recovery scams."
+    },
+    {
+      "id": "global-crypto-forex-hype",
+      "label": "Crypto / Forex Hype",
+      "severity": "medium",
+      "patterns": [
+        { "pattern": "\\b(?:crypto|forex)\\s+signals?\\b", "flags": "i" },
+        { "pattern": "\\b\\d{2,}x\\s+(?:coin|return|profits?)\\b", "flags": "i" },
+        { "pattern": "\\bairdrop\\s+(?:claim|drop)\\b", "flags": "i" },
+        { "pattern": "\\bpump\\s+signals?\\b", "flags": "i" }
+      ],
+      "guidance": "Detect hype/signal language common in speculative or manipulative schemes."
+    },
+    {
+      "id": "global-adult-promo-lite",
+      "label": "Adult / NSFW Promo (lite)",
+      "severity": "medium",
+      "patterns": [
+        { "pattern": "\\bonlyfans\\b", "flags": "i" },
+        { "pattern": "\\bfansly\\b", "flags": "i" },
+        { "pattern": "https?:\\/\\/(?:onlyfans\\.com|fansly\\.com)\\/\\S+", "flags": "i" },
+        { "pattern": "\\bnsfw\\b.*\\blink\\b", "flags": "i" }
+      ],
+      "guidance": "Lightweight signals for adult-content promotion; keep scope narrow to avoid false positives."
+    },
+    {
+      "id": "global-malware-suspicious-files",
+      "label": "Malware / Suspicious Files",
+      "severity": "high",
+      "patterns": [
+        { "pattern": "\\bdownload\\s+\\S+\\.(?:exe|apk|bat|scr)\\b", "flags": "i" },
+        { "pattern": "\\b(?:crack|keygen|serial\\s*key)\\b", "flags": "i" },
+        { "pattern": "\\b(?:free\\s+hack|aimbot|wallhack)\\b", "flags": "i" }
+      ],
+      "guidance": "Block obvious malware/warez patterns and cheat tooling references."
+    },
+    {
+      "id": "global-phishing-language",
+      "label": "Phishing Language",
+      "severity": "high",
+      "patterns": [
+        { "pattern": "\\bclick\\s+(?:here|the\\s+link)\\s+to\\s+(?:verify|login|sign\\s*in)\\b", "flags": "i" },
+        { "pattern": "\\breset\\s+your\\s+password\\b", "flags": "i" },
+        { "pattern": "\\bupdate\\s+your\\s+payment\\s+(?:info|information)\\b", "flags": "i" },
+        { "pattern": "\\bunusual\\s+activity\\s+detected\\b", "flags": "i" },
+        { "pattern": "\\bverify\\s+your\\s+identity\\b", "flags": "i" }
+      ],
+      "guidance": "Catch common phishing triggers asking users to verify, reset, or update via links."
+    },
+    {
       "id": "global-profanity-lite",
       "label": "Strong Profanity / Slurs (lite demo blocklist)",
       "severity": "medium",
       "patterns": [
-        "\\b(?:a\\**h\\**e\\**|b\\**tch|f\\**k|s\\**t)\\b"
+        { "pattern": "\\b(?:a\\**h\\**e\\**|b\\**tch|f\\**k|s\\**t)\\b", "flags": "i" }
       ],
       "guidance": "Tone down profanity to keep content broadly acceptable."
     },
@@ -83,7 +185,7 @@
       "label": "Rapid weight-loss / medical claims",
       "severity": "high",
       "patterns": [
-        { "pattern": "lose\\s+\\d+\\s+pounds?\\s+in\\s+\\d+\\s+(days?|weeks?)", "flags": "i" },
+        { "pattern": "lose\\s+\\d+\\s+pounds?\\s+in\\s+\\d+\\s+(?:days?|weeks?)", "flags": "i" },
         { "pattern": "lose\\s+weight\\s+fast", "flags": "i" },
         { "pattern": "rapid\\s+weight\\s+loss", "flags": "i" },
         { "pattern": "guaranteed\\s+cure", "flags": "i" },
@@ -100,9 +202,9 @@
       "label": "Counterfeit / replica claims",
       "severity": "high",
       "patterns": [
-        "official\\s+replica",
-        "super\\s+copy",
-        "1:1\\s+replica"
+        { "pattern": "official\\s+replica", "flags": "i" },
+        { "pattern": "super\\s+copy", "flags": "i" },
+        { "pattern": "1:1\\s+replica", "flags": "i" }
       ],
       "rewrite": {
         "find": "(official\\s+replica|super\\s+copy|1:1\\s+replica)",

@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:35:23.965Z",
+  "platform": "instagram",
+  "level": "red",
+  "issues": [
+    "Rapid weight-loss / medical claims"
+  ],
+  "fixesCount": 2,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Lose weight fast with this tea"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}

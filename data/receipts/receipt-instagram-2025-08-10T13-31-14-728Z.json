@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-10T13:31:14.728Z",
+  "platform": "instagram",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Tag 3 friends to win!"
+  },
+  "model": null,
+  "strictMode": false
+}

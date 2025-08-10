@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-10T13:31:14.765Z",
+  "platform": "instagram",
+  "level": "green",
+  "issues": [],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Before & after results in 7 days"
+  },
+  "model": null,
+  "strictMode": false
+}

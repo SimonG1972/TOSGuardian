@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-10T13:35:11.369Z",
+  "platform": "instagram",
+  "level": "yellow",
+  "issues": [
+    "Adult / NSFW Promo (lite)"
+  ],
+  "fixesCount": 0,
+  "rulebookVersion": "1.0.0",
+  "fieldsSnapshot": {
+    "description": "Follow me on OnlyFans"
+  },
+  "model": {
+    "name": "Llama 3.1 (local)",
+    "hadError": true
+  },
+  "strictMode": false
+}
